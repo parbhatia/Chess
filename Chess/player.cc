@@ -34,5 +34,6 @@ King* Player::getKing() {
     return king;
 }
 
-Player::Player(Color color, Board* B, King* king):
-color{color}, B{B}, king{king} {}
+Player::Player(Color color, Board* B, King* king): color{color}, B{B}, king{king} {}
+
+Player::~Player() {}

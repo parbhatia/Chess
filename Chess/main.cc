@@ -6,7 +6,7 @@
 #include "piece.h"
 #include "player.h"
 #include "humanPlayer.h"
-#include "computerPlayer.h"
+//#include "computerPlayer.h"
 #include "board.h"
 #include "piecepositions.h"
 #include "knight.h"

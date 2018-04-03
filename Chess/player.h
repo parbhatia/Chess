@@ -3,6 +3,7 @@
 #include "piece.h"
 #include "king.h"
 #include "board.h"
+#include <iostream>
 
 class Player {
 	protected:

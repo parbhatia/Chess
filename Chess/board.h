@@ -5,6 +5,7 @@
 #include "pos.h"
 #include "move.h"
 #include "piece.h"
+#include <iostream>
 
 class Board {
     std::vector<std::vector <Piece*>> pieces; //all pieces on board

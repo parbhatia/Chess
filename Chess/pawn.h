@@ -3,6 +3,7 @@
 #include "piece.h"
 #include "pos.h"
 #include "color.h"
+#include <iostream>
 
 class Pawn : public Piece {
 	bool enPassant;

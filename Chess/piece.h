@@ -3,6 +3,7 @@
 #include <vector>
 #include "pos.h"
 #include "color.h"
+#include <iostream>
 
 class Piece {
 	const Color color;

@@ -5,6 +5,7 @@
 #include "pos.h"
 #include <vector>
 #include "color.h"
+#include <iostream>
 
 class Bishop: public Piece {
 public:

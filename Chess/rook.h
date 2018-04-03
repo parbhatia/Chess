@@ -4,6 +4,7 @@
 #include "piece.h"
 #include "pos.h"
 #include "color.h"
+#include <iostream>
 
 class Rook: public Piece {
 public:

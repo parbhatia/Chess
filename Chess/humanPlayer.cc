@@ -1,6 +1,7 @@
 #include "humanPlayer.h"
 #include "pos.h"
 #include <iostream>
+#include "player.h"
 using namespace std;
 
 void HumanPlayer::move(Pos oldPos, Pos newPos, char prm){
@@ -45,4 +46,4 @@ void HumanPlayer::move(Pos oldPos, Pos newPos, char prm){
 
 HumanPlayer::HumanPlayer(Color color, Board* B, King* king): Player(color, B, king) {}
 
-HumanPlayer::~HumanPlayer(){};
+HumanPlayer::~HumanPlayer() {}
