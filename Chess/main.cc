@@ -3,7 +3,6 @@
 #include <sstream>
 #include <map>
 #include "pos.h"
-#include "textdisplay.h"
 #include "piece.h"
 #include "player.h"
 #include "humanPlayer.h"

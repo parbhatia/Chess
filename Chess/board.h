@@ -4,7 +4,6 @@
 #include <vector>
 #include "pos.h"
 #include "move.h"
-#include "textdisplay.h"
 #include "piece.h"
 
 class Board {
