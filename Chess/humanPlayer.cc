@@ -24,7 +24,11 @@ void HumanPlayer::move(Pos oldPos, Pos newPos, char prm){
 	}
 	else {
 		if(curPiece->IsLegal(newPos, B->getPieces())) {
-			B->makeTheMove(curPiece, target, prm);
+			if(prm == ' ') {
+				B->makeTheMove(curPiece, target);
+			} else {
+				B->makeTheMove(curPiece, target, prm);
+			}
 			if (B->isAttacked(king->getPos()) == true){
 				B->undo();
 				std::cout << "INVALID" << std::endl;
