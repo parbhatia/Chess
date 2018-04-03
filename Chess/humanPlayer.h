@@ -6,7 +6,7 @@
 
 class HumanPlayer: public Player {
 	public:
-	void move(Pos oldPos, Pos newPos, char prm = 'Q') override;
+	void move(Pos oldPos, Pos newPos, char prm) override;
 	HumanPlayer(Color color, Board* B, King* king = NULL);
 	~HumanPlayer();
 };
