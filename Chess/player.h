@@ -1,6 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 #include "piece.h"
+#include "king.h"
 
 class Board;
 

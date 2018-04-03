@@ -19,6 +19,6 @@ class Board {
     std::vector <Moves*>* getMoves();
 	Board();
 	~Board();
-    friend std::ostream &operator<<(ostream &os, const Board &b);
+    friend std::ostream &operator<<(std::ostream &os, const Board &b);
 };
 #endif
