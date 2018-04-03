@@ -78,4 +78,4 @@ vector<Pos> Knight::getPossibleMoves(vector <vector<Piece*>> pieces) {
 	return vec;
 }
 
-Knight::Knight(Color c, Pos pos, bool hasMoved = false): Piece(c ,pos, hasMoved) {}
+Knight::Knight(Color c, Pos pos, bool hasMoved): Piece(c ,pos, hasMoved) {}

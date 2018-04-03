@@ -1,16 +1,16 @@
 #ifndef BOARD_H
 #define BOARD_H
 #include "color.h"
+#include <vector>
 #include "pos.h"
 #include "move.h"
 #include "textdisplay.h"
-
-class Piece;
+#include "piece.h"
 
 class Board {
-	std::vector <Piece*> pieces; //current pieces on board
+    std::vector<std::vector <Piece*>> pieces; //all pieces on board
     std::vector <Move*> moves;
-	TextDisplay* td;
+	TextDisplay* td = NULL;
 	public:
 	void insert (Pos pos, char letter);
 	void remove (Pos pos);

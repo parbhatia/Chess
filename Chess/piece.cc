@@ -1,6 +1,7 @@
 #include "piece.h"
 using namespace std;
 
+
 void Piece::setMoved(bool val) {
 	hasMoved = val;
 }

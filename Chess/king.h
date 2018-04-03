@@ -5,6 +5,7 @@
 #include "color.h"
 
 class King: public Piece {
+public:
     bool IsLegal(Pos newPos, std::vector <std::vector<Piece*>> pieces) override;
     std::vector<Pos> getPossibleMoves(std::vector <std::vector<Piece*>> pieces) override;
 	King(Color c, Pos pos, bool hasMoved = false);
