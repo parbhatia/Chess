@@ -59,8 +59,8 @@ void Board::notify(Pos pos, char promo) {
 Board::~Board() {}
 
 
-ostream &Board::operator<<(ostream &os, const Board &b) {
-    os<<(*td);
+ostream& operator<<(ostream &os, const Board &b) {
+    os<<(*b.td);
     return os;
 }
 
