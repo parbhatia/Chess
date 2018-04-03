@@ -1,10 +1,11 @@
 #ifndef MOVE_H
 #define MOVE_H
-
-struct move{
+#include "piece.h"
+#include "pos.h"
+struct Move{
     Pos oldPos, newPos;
     Piece *captured;
-    string specialMove;
+    std::string specialMove;
 };
 
 #endif

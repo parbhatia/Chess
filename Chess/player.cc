@@ -1,10 +1,13 @@
 #include "board.h"
 #include "player.h"
 #include "pos.h"
+#include <vector>
+using namespace std;
+
 bool Player::LegalMoveExists() {
 	for (auto &p:B->getPieces()) {
-		if (p != nullptr && p.getColor == color) {//skipping empty cells and opponent pieces
-			vector <Pos> possibleMoves = p->getPossibleMoves();
+        if (p != nullptr && p.getColor() == color) {//skipping empty cells and opponent pieces
+			vector <Pos> possibleMoves = p.getPossibleMoves();
 			for (auto &m:possibleMoves) {/*legal move found if king is
 							not attacked after the move*/
 				makeTheMove(p, B->getPieces[m.row][m.col], B);
