@@ -14,7 +14,7 @@ class Player {
 	bool LegalMoveExists();
 	void setKing(King* K);
 	King* getKing();
-    virtual void move(const Pos curPos, const Pos newPos, char prm) = 0;
+    virtual void move(const Pos curPos, const Pos newPos, char prm = 'Q') = 0;
 	Player(Color color, Board* B, King* king = NULL);
 	~Player();
 };

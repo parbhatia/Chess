@@ -23,6 +23,10 @@ Pos Piece::getPos() {
 	return pos;
 }
 
+bool Piece::isPawn() {
+	return false;
+}
+
 bool Piece::getPassant() {
 	return false;
 }
