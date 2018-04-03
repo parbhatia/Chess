@@ -1,5 +1,5 @@
 #ifndef POS_H
-#define POS_h
+#define POS_H
 
 struct Pos {
     int row;

@@ -45,7 +45,7 @@ vector<Pos> Rook::getPossibleMoves(vector <vector<Piece*>> pieces) {  //We need 
   for(int i = getPos().col + 1; i <= 7; ++i) { //check right
     if(((pieces[getPos().row][i] == nullptr) || (pieces[getPos().row][i]->getColor() != getColor())) &&  //destionation cell condition
        (IsLegal({getPos().row, i}, pieces) == true)) {
-      vec.push_back = {i,getPos().col};
+        vec.push_back(Pos{i,getPos().col});
     } else {
       break;
     }
@@ -54,7 +54,7 @@ vector<Pos> Rook::getPossibleMoves(vector <vector<Piece*>> pieces) {  //We need 
   for(int i = getPos().col - 1; i >= 0; --i) { //check left
     if(((pieces[getPos().row][i] == nullptr) || (pieces[getPos().row][i]->getColor() != getColor())) &&  //destionation cell condition
        (IsLegal({getPos().row, i}, pieces) == true)) {
-      vec.push_back = {i,getPos().col};
+        vec.push_back(Pos{i,getPos().col});
     } else {
       break;
     }
@@ -63,7 +63,7 @@ vector<Pos> Rook::getPossibleMoves(vector <vector<Piece*>> pieces) {  //We need 
   for(int i = getPos().row + 1; i <= 7; ++i) { //check bottom
     if(((pieces[i][getPos().col] == nullptr) || (pieces[i][getPos().col]->getColor() != getColor())) &&  //destionation cell condition
        (IsLegal({i, getPos().col},  pieces) == true)) {
-      vec.push_back = {i, getPos().col};
+        vec.push_back(Pos{i, getPos().col});
     } else {
       break;
     }
@@ -72,7 +72,7 @@ vector<Pos> Rook::getPossibleMoves(vector <vector<Piece*>> pieces) {  //We need 
   for(int i = getPos().row - 1; i >= 0; --i) { //check top
     if(((pieces[i][getPos().col] == nullptr) || (pieces[i][getPos().col]->getColor() != getColor())) &&  //destionation cell condition
        (IsLegal({i, getPos().col}, pieces) == true)) {
-      vec.push_back = {i, getPos().col};
+        vec.push_back(Pos{i, getPos().col});
     } else {
       break;
     }

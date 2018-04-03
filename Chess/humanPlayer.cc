@@ -1,24 +1,26 @@
 #include "humanPlayer.h"
 #include "pos.h"
+#include <iostream>
+using namespace std;
 
-HumanPlayer::void move(Pos oldPos, newPos, char prm){
-	Piece* curPiece = B.getPieces[oldPos.row][oldPos.col];
-	Piece* target = B.getPieces[newPos.row][newPos.col];//piece at newPos
+void HumanPlayer::move(Pos oldPos, Pos newPos, char prm){
+	Piece* curPiece = B->getPieces[oldPos.row][oldPos.col];
+	Piece* target = B->getPieces[newPos.row][newPos.col];//piece at newPos
 
 	if (B->outOfRange(oldPos) || B->outOfRange(newPos)) { //out of the board
-		std::cout << "INVALID" << std::endl;
+		cout << "INVALID" << endl;
 	}
 	else if (oldPos.col == newPos.col && oldPos.row == newPos.row) {//oldPos == newPos
-		std::cout << "INVALID" << std::endl;
+		cout << "INVALID" << endl;
 	}
 	else if (curPiece == NULL) {//empty cell
 		std::cout << "INVALID" << std::endl;
 	}
 	else if (curPiece->getColor() != color) { //not player's piece
-	std::cout << "INVALID" << std::endl;
+        cout << "INVALID" << endl;
 	}
 	else if (target != NULL && target->color == color) {//player capturing its own piece
-	std::cout << "INVALID" << std::endl;
+        cout << "INVALID" << endl;
 	}
 	else {
 		if(IsLegal(newPos, B->getPieces())) {

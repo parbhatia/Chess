@@ -5,9 +5,9 @@
 class Board;
 
 class Player {
-	const Color color;
 	Board* B;
 	protected:
+    const Color color;
 	King* king;
 	public:
 	//checks if player has any legal moves:
@@ -22,6 +22,6 @@ class Player {
 //should we make these Board methods?
 void makeTheMove(Piece* moved, Piece* target, Board* b);
 bool outOfRange(const Pos p);
-bool isAttacked(Piece* p, vector<Pieces*> pieces);
+bool isAttacked(Piece* p, std::vector<Piece*> pieces);
 
 #endif

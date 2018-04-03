@@ -53,67 +53,67 @@ vector<Pos> King::getPossibleMoves(vector <vector<Piece*>> pieces) {
 	if ((getPos().row - 1 >= 0) && (getPos().col - 1 >= 0) &&    //moving up-left
 		((pieces[getPos().row - 1][getPos().col - 1] == nullptr) || 
 			(pieces[getPos().row - 1][getPos().col - 1]->getColor() != getColor()))) {
-		vec.push_back = {getPos().row - 1, getPos().col - 1};
+            vec.push_back(Pos{getPos().row - 1, getPos().col - 1});
 	}
 
 	if ((getPos().row - 1 >= 0) &&                               //moving up
 		((pieces[getPos().row - 1][getPos().col] == nullptr) || 
 			(pieces[getPos().row - 1][getPos().col]->getColor() != getColor()))) {
-		vec.push_back = {getPos().row - 1, getPos().col};
+		vec.push_back(Pos{getPos().row - 1, getPos().col});
 	}
 
 	if ((getPos().row - 1 >= 0) && (getPos().col + 1 <= 7) &&    //moving up-right
 		((pieces[getPos().row - 1][getPos().col + 1] == nullptr) || 
 			(pieces[getPos().row - 1][getPos().col + 1]->getColor() != getColor()))) {
-		vec.push_back = {getPos().row - 1, getPos().col + 1};
+            vec.push_back(Pos{getPos().row - 1, getPos().col + 1});
 	}
 
 	if ((getPos().col - 1 >= 0) &&                               //moving left
 		((pieces[getPos().row][getPos().col - 1] == nullptr) || 
 			(pieces[getPos().row][getPos().col - 1]->getColor() != getColor()))) {
-		vec.push_back = {getPos().row, getPos().col - 1};
+            vec.push_back(Pos{getPos().row, getPos().col - 1});
 	}
 
 	if ((getPos().col + 1 <= 7) &&                               //moving right
 		((pieces[getPos().row][getPos().col + 1] == nullptr) || 
 			(pieces[getPos().row][getPos().col + 1]->getColor() != getColor()))) {
-		vec.push_back = {getPos().row, getPos().col + 1};
+            vec.push_back(Pos{getPos().row, getPos().col + 1});
 	}
 
 	if ((getPos().row + 1 <= 7) && (getPos().col - 1 >= 0) &&    //moving down-left
 		((pieces[getPos().row + 1][getPos().col - 1] == nullptr) || 
 			(pieces[getPos().row + 1][getPos().col - 1]->getColor() != getColor()))) {
-		vec.push_back = {getPos().row + 1, getPos().col - 1};
+            vec.push_back(Pos{getPos().row + 1, getPos().col - 1});
 	}
 
 	if ((getPos().row + 1 <= 7) &&                               //moving down
 		((pieces[getPos().row + 1][getPos().col] == nullptr) || 
 			(pieces[getPos().row + 1][getPos().col]->getColor() != getColor()))) {
-		vec.push_back = {getPos().row + 1, getPos().col};
+            vec.push_back(Pos{getPos().row + 1, getPos().col});
 	}
 
 	if ((getPos().row + 1 <= 7) && (getPos().col + 1 <= 7) &&    //moving down-right
 		((pieces[getPos().row + 1][getPos().col + 1] == nullptr) || 
 			(pieces[getPos().row + 1][getPos().col + 1]->getColor() != getColor()))) {
-		vec.push_back = {getPos().row + 1, getPos().col + 1};
+            vec.push_back({getPos().row + 1, getPos().col + 1});
 	}
     
 
     //White long castling
 	if((getPos().row == 7) && (getPos().col == 4) && (IsLegal({7, 2}, pieces) == true)) {
-		vec.push_back = {7,2};
+        vec.push_back(Pos{7,2});
 	} 
     //White short castling
 	if((getPos().row == 7) && (getPos().col == 4) && (IsLegal({7, 6}, pieces) == true)) {
-		vec.push_back = {7,6};
+        vec.push_back({7,6});
 	}
 	//Black long castling
 	if((getPos().row == 0) && (getPos().col == 4) && (IsLegal({0, 2}, pieces) == true)) {
-		vec.push_back = {0,2};
+        vec.push_back({0,2});
 	} 
     //White short castling
 	if((getPos().row == 0) && (getPos().col == 4) && (IsLegal({0, 6}, pieces) == true)) {
-		vec.push_back = {0,6};
+        vec.push_back({0,6});
 	}
 }
 

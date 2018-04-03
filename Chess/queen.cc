@@ -82,7 +82,7 @@ vector<Pos> Queen::getPossibleMoves(vector<vector<Piece*>> pieces) { //We need t
     for(int i = getPos().col + 1; i <= 7; ++i) { //check right
     if(((pieces[getPos().row][i] == nullptr) || (pieces[getPos().row][i]->getColor() != getColor())) &&  //destionation cell condition
        (IsLegal({getPos().row, i}, pieces) == true)) {
-      vec.push_back = {i,getPos().col};
+        vec.push_back(Pos{i,getPos().col});
     } else {
       break;
     }
@@ -91,7 +91,7 @@ vector<Pos> Queen::getPossibleMoves(vector<vector<Piece*>> pieces) { //We need t
   for(int i = getPos().col - 1; i >= 0; --i) { //check left
     if(((pieces[getPos().row][i] == nullptr) || (pieces[getPos().row][i]->getColor() != getColor())) &&  //destionation cell condition
        (IsLegal({getPos().row, i}, pieces) == true)) {
-      vec.push_back = {i,getPos().col};
+      vec.push_back(Pos{i,getPos().col});
     } else {
       break;
     }
@@ -100,7 +100,7 @@ vector<Pos> Queen::getPossibleMoves(vector<vector<Piece*>> pieces) { //We need t
   for(int i = getPos().row + 1; i <= 7; ++i) { //check bottom
     if(((pieces[i][getPos().col] == nullptr) || (pieces[i][getPos().col]->getColor() != getColor())) &&  //destionation cell condition
        (IsLegal({i, getPos().col}, pieces) == true)) {
-      vec.push_back = {i, getPos().col};
+      vec.push_back(Pos{i, getPos().col});
     } else {
       break;
     }
@@ -109,7 +109,7 @@ vector<Pos> Queen::getPossibleMoves(vector<vector<Piece*>> pieces) { //We need t
   for(int i = getPos().row - 1; i >= 0; --i) { //check top
     if(((pieces[i][getPos().col] == nullptr) || (pieces[i][getPos().col]->getColor() != getColor())) &&  //destionation cell condition
        (IsLegal({i, getPos().col}, pieces) == true)) {
-      vec.push_back = {i, getPos().col};
+      vec.push_back(Pos{i, getPos().col});
     } else {
       break;
     }
@@ -118,34 +118,34 @@ vector<Pos> Queen::getPossibleMoves(vector<vector<Piece*>> pieces) { //We need t
   for(int i = getPos().row + 1, y = getPos().col + 1; (i <= 7) && (y <= 7); ++i, ++y) { //check right-bottom
     if(((pieces[i][y] == nullptr) || (pieces[i][y]->getColor() != getColor())) &&  //destionation cell condition
        (IsLegal({i, y}, pieces) == true)) {
-      vec.push_back = {i,y};
+      vec.push_back(Pos{i,y});
     } else {
       break;
     }
   }
   
   for(int i = getPos().row + 1, y = getPos().col - 1; (i <= 7) && (y >= 0); ++i, --y) { //check left-bottom
-    if(((pieces[i][y] == nullptr) || (pieces[i][y]->getColor != getColor())) &&  //destionation cell condition
+      if(((pieces[i][y] == nullptr) || (pieces[i][y]->getColor() != getColor())) &&  //destionation cell condition
        (IsLegal({i, y}, pieces) == true)) {
-      vec.push_back = {i,y};
+      vec.push_back(Pos{i,y});
     } else {
       break;
     }
   }
   
   for(int i = getPos().row - 1, y = getPos().col + 1; (i >= 0) && (y <= 7); --i, ++y) { //check right-top
-    if(((pieces[i][y] == nullptr) || (pieces[i][y]->getColor != getColor())) &&  //destionation cell condition
+      if(((pieces[i][y] == nullptr) || (pieces[i][y]->getColor() != getColor())) &&  //destionation cell condition
        (IsLegal({i, y}, pieces) == true)) {
-      vec.push_back = {i,y};
+      vec.push_back(Pos{i,y});
     } else {
       break;
     }
   }
   
   for(int i = getPos().row - 1, y = getPos().col - 1; (i >= 0) && (y >= 0); --i, --y) { //check left-top
-    if(((pieces[i][y] == nullptr) || (pieces[i][y]->getColor != getColor())) &&  //destionation cell condition
+      if(((pieces[i][y] == nullptr) || (pieces[i][y]->getColor() != getColor())) &&  //destionation cell condition
        (IsLegal({i, y}, pieces) == true)) {
-      vec.push_back = {i,y};
+      vec.push_back(Pos{i,y});
     } else {
       break;
     }
