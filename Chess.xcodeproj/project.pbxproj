@@ -8,6 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		4BD5605C2073356E005A2AF0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5605B2073356E005A2AF0 /* main.cpp */; };
+		4BD56081207335B3005A2AF0 /* player.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD56064207335B1005A2AF0 /* player.cc */; };
+		4BD56082207335B3005A2AF0 /* knight.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD56066207335B1005A2AF0 /* knight.cc */; };
+		4BD56083207335B3005A2AF0 /* main.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD56068207335B1005A2AF0 /* main.cc */; };
+		4BD56084207335B3005A2AF0 /* rook.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD56069207335B1005A2AF0 /* rook.cc */; };
+		4BD56085207335B3005A2AF0 /* king.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5606C207335B2005A2AF0 /* king.cc */; };
+		4BD56086207335B3005A2AF0 /* pawn.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5606D207335B2005A2AF0 /* pawn.cc */; };
+		4BD56087207335B3005A2AF0 /* board.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5606E207335B2005A2AF0 /* board.cc */; };
+		4BD56088207335B3005A2AF0 /* textdisplay.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5606F207335B2005A2AF0 /* textdisplay.cc */; };
+		4BD56089207335B3005A2AF0 /* bishop.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD56070207335B2005A2AF0 /* bishop.cc */; };
+		4BD5608A207335B3005A2AF0 /* humanPlayer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD56071207335B2005A2AF0 /* humanPlayer.cc */; };
+		4BD5608B207335B3005A2AF0 /* piece.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD56072207335B2005A2AF0 /* piece.cc */; };
+		4BD5608C207335B3005A2AF0 /* queen.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD56074207335B2005A2AF0 /* queen.cc */; };
+		4BD5608D207335B3005A2AF0 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5607A207335B2005A2AF0 /* Makefile */; };
+		4BD5608E207335B3005A2AF0 /* computerPlayer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5607E207335B3005A2AF0 /* computerPlayer.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +39,37 @@
 /* Begin PBXFileReference section */
 		4BD560582073356E005A2AF0 /* Chess */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Chess; sourceTree = BUILT_PRODUCTS_DIR; };
 		4BD5605B2073356E005A2AF0 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		4BD56062207335B1005A2AF0 /* board.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = board.h; sourceTree = "<group>"; };
+		4BD56063207335B1005A2AF0 /* player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = player.h; sourceTree = "<group>"; };
+		4BD56064207335B1005A2AF0 /* player.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = player.cc; sourceTree = "<group>"; };
+		4BD56065207335B1005A2AF0 /* bishop.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bishop.h; sourceTree = "<group>"; };
+		4BD56066207335B1005A2AF0 /* knight.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = knight.cc; sourceTree = "<group>"; };
+		4BD56067207335B1005A2AF0 /* knight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = knight.h; sourceTree = "<group>"; };
+		4BD56068207335B1005A2AF0 /* main.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cc; sourceTree = "<group>"; };
+		4BD56069207335B1005A2AF0 /* rook.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rook.cc; sourceTree = "<group>"; };
+		4BD5606A207335B1005A2AF0 /* humanPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = humanPlayer.h; sourceTree = "<group>"; };
+		4BD5606B207335B1005A2AF0 /* move.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = move.h; sourceTree = "<group>"; };
+		4BD5606C207335B2005A2AF0 /* king.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = king.cc; sourceTree = "<group>"; };
+		4BD5606D207335B2005A2AF0 /* pawn.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pawn.cc; sourceTree = "<group>"; };
+		4BD5606E207335B2005A2AF0 /* board.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = board.cc; sourceTree = "<group>"; };
+		4BD5606F207335B2005A2AF0 /* textdisplay.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = textdisplay.cc; sourceTree = "<group>"; };
+		4BD56070207335B2005A2AF0 /* bishop.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bishop.cc; sourceTree = "<group>"; };
+		4BD56071207335B2005A2AF0 /* humanPlayer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = humanPlayer.cc; sourceTree = "<group>"; };
+		4BD56072207335B2005A2AF0 /* piece.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = piece.cc; sourceTree = "<group>"; };
+		4BD56073207335B2005A2AF0 /* rook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rook.h; sourceTree = "<group>"; };
+		4BD56074207335B2005A2AF0 /* queen.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = queen.cc; sourceTree = "<group>"; };
+		4BD56075207335B2005A2AF0 /* queen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = queen.h; sourceTree = "<group>"; };
+		4BD56076207335B2005A2AF0 /* textdisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textdisplay.h; sourceTree = "<group>"; };
+		4BD56077207335B2005A2AF0 /* piecepositions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = piecepositions.h; sourceTree = "<group>"; };
+		4BD56078207335B2005A2AF0 /* color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = color.h; sourceTree = "<group>"; };
+		4BD56079207335B2005A2AF0 /* piece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = piece.h; sourceTree = "<group>"; };
+		4BD5607A207335B2005A2AF0 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
+		4BD5607B207335B2005A2AF0 /* pos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pos.h; sourceTree = "<group>"; };
+		4BD5607C207335B3005A2AF0 /* king.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = king.h; sourceTree = "<group>"; };
+		4BD5607D207335B3005A2AF0 /* pawn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pawn.h; sourceTree = "<group>"; };
+		4BD5607E207335B3005A2AF0 /* computerPlayer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = computerPlayer.cc; sourceTree = "<group>"; };
+		4BD5607F207335B3005A2AF0 /* computerPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = computerPlayer.h; sourceTree = "<group>"; };
+		4BD56080207335B3005A2AF0 /* errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = errors.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +102,37 @@
 		4BD5605A2073356E005A2AF0 /* Chess */ = {
 			isa = PBXGroup;
 			children = (
+				4BD56070207335B2005A2AF0 /* bishop.cc */,
+				4BD56065207335B1005A2AF0 /* bishop.h */,
+				4BD5606E207335B2005A2AF0 /* board.cc */,
+				4BD56062207335B1005A2AF0 /* board.h */,
+				4BD56078207335B2005A2AF0 /* color.h */,
+				4BD5607E207335B3005A2AF0 /* computerPlayer.cc */,
+				4BD5607F207335B3005A2AF0 /* computerPlayer.h */,
+				4BD56080207335B3005A2AF0 /* errors.h */,
+				4BD56071207335B2005A2AF0 /* humanPlayer.cc */,
+				4BD5606A207335B1005A2AF0 /* humanPlayer.h */,
+				4BD5606C207335B2005A2AF0 /* king.cc */,
+				4BD5607C207335B3005A2AF0 /* king.h */,
+				4BD56066207335B1005A2AF0 /* knight.cc */,
+				4BD56067207335B1005A2AF0 /* knight.h */,
+				4BD56068207335B1005A2AF0 /* main.cc */,
+				4BD5607A207335B2005A2AF0 /* Makefile */,
+				4BD5606B207335B1005A2AF0 /* move.h */,
+				4BD5606D207335B2005A2AF0 /* pawn.cc */,
+				4BD5607D207335B3005A2AF0 /* pawn.h */,
+				4BD56072207335B2005A2AF0 /* piece.cc */,
+				4BD56079207335B2005A2AF0 /* piece.h */,
+				4BD56077207335B2005A2AF0 /* piecepositions.h */,
+				4BD56064207335B1005A2AF0 /* player.cc */,
+				4BD56063207335B1005A2AF0 /* player.h */,
+				4BD5607B207335B2005A2AF0 /* pos.h */,
+				4BD56074207335B2005A2AF0 /* queen.cc */,
+				4BD56075207335B2005A2AF0 /* queen.h */,
+				4BD56069207335B1005A2AF0 /* rook.cc */,
+				4BD56073207335B2005A2AF0 /* rook.h */,
+				4BD5606F207335B2005A2AF0 /* textdisplay.cc */,
+				4BD56076207335B2005A2AF0 /* textdisplay.h */,
 				4BD5605B2073356E005A2AF0 /* main.cpp */,
 			);
 			path = Chess;
@@ -119,7 +195,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4BD56089207335B3005A2AF0 /* bishop.cc in Sources */,
+				4BD56086207335B3005A2AF0 /* pawn.cc in Sources */,
+				4BD5608E207335B3005A2AF0 /* computerPlayer.cc in Sources */,
+				4BD5608B207335B3005A2AF0 /* piece.cc in Sources */,
+				4BD56085207335B3005A2AF0 /* king.cc in Sources */,
+				4BD5608A207335B3005A2AF0 /* humanPlayer.cc in Sources */,
+				4BD56083207335B3005A2AF0 /* main.cc in Sources */,
+				4BD5608C207335B3005A2AF0 /* queen.cc in Sources */,
+				4BD56081207335B3005A2AF0 /* player.cc in Sources */,
+				4BD56087207335B3005A2AF0 /* board.cc in Sources */,
+				4BD56088207335B3005A2AF0 /* textdisplay.cc in Sources */,
+				4BD56082207335B3005A2AF0 /* knight.cc in Sources */,
 				4BD5605C2073356E005A2AF0 /* main.cpp in Sources */,
+				4BD5608D207335B3005A2AF0 /* Makefile in Sources */,
+				4BD56084207335B3005A2AF0 /* rook.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
