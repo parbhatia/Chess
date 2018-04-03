@@ -19,7 +19,7 @@ class Board {
     std::vector <Move*>* getMoves();
     bool outOfRange(const Pos p);
     bool isAttacked(Pos cellPos);
-    void makeTheMove(Piece* moved, Piece* target, char prm);
+    void makeTheMove(Piece* moved, Piece* target, char prm = 'Q');
     void notify(Pos pos, char promo);
     void undo();
 	Board();
