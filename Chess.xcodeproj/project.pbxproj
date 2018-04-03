@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4BD5605C2073356E005A2AF0 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5605B2073356E005A2AF0 /* main.cpp */; };
 		4BD56081207335B3005A2AF0 /* player.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD56064207335B1005A2AF0 /* player.cc */; };
 		4BD56082207335B3005A2AF0 /* knight.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD56066207335B1005A2AF0 /* knight.cc */; };
 		4BD56083207335B3005A2AF0 /* main.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD56068207335B1005A2AF0 /* main.cc */; };
@@ -39,7 +38,6 @@
 
 /* Begin PBXFileReference section */
 		4BD560582073356E005A2AF0 /* Chess */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Chess; sourceTree = BUILT_PRODUCTS_DIR; };
-		4BD5605B2073356E005A2AF0 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		4BD56062207335B1005A2AF0 /* board.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = board.h; sourceTree = "<group>"; };
 		4BD56063207335B1005A2AF0 /* player.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = player.h; sourceTree = "<group>"; };
 		4BD56064207335B1005A2AF0 /* player.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = player.cc; sourceTree = "<group>"; };
@@ -136,7 +134,6 @@
 				4BD56073207335B2005A2AF0 /* rook.h */,
 				4BD5606F207335B2005A2AF0 /* textdisplay.cc */,
 				4BD56076207335B2005A2AF0 /* textdisplay.h */,
-				4BD5605B2073356E005A2AF0 /* main.cpp */,
 			);
 			path = Chess;
 			sourceTree = "<group>";
@@ -211,7 +208,6 @@
 				4BD56087207335B3005A2AF0 /* board.cc in Sources */,
 				4BD56088207335B3005A2AF0 /* textdisplay.cc in Sources */,
 				4BD56082207335B3005A2AF0 /* knight.cc in Sources */,
-				4BD5605C2073356E005A2AF0 /* main.cpp in Sources */,
 				4BD5608D207335B3005A2AF0 /* Makefile in Sources */,
 				4BD56084207335B3005A2AF0 /* rook.cc in Sources */,
 			);

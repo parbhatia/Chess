@@ -6,8 +6,8 @@
 class Board;
 
 class Player {
-	Board* B;
 	protected:
+    Board* B;
     const Color color;
 	King* king;
 	public:
@@ -15,7 +15,7 @@ class Player {
 	bool LegalMoveExists();
 	void setKing(King* K);
 	King* getKing();
-	virtual void move(const Pos curPos, const Pos newPos, string prm) = 0;
+    virtual void move(const Pos curPos, const Pos newPos, std::string prm) = 0;
 	Player(Color color, Board* B, King* king = NULL);
 	~Player();
 };

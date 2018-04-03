@@ -28,7 +28,7 @@ void Player::setKing(King* k) {
 	king = k;
 }
 
-void Player::getKing() {
+King* Player::getKing() {
 	return king;
 }
 
