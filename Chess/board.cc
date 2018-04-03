@@ -64,16 +64,16 @@ ostream &Board::operator<<(ostream &os, const Board &b) {
     return os;
 }
 
-void makeTheMove(Piece* moved, Piece* target){
-	const Pos mPos = moved->getPos(); //moving from mPos
-	const Pos tPos = target->getPos(); //moving to tPos
-	bool RegularMove = true;
-
-	//possible enPassant capture:
-	if (((mPos.row == 3 && tPos.row == 2) || (mPos.row == 4 && tPos.row == 5)) &&
-		(abs(mPos.col - tPos.col) == 1) && 
-		(target == nullptr) &&
-		(moved->getPassant() == true)) {
+void Board::makeTheMove(Piece* moved, Piece* target){
+    const Pos mPos = moved->getPos(); //moving from mPos
+    const Pos tPos = target->getPos(); //moving to tPos
+    bool RegularMove = true;
+    
+    //possible enPassant capture:
+    if (((mPos.row == 3 && tPos.row == 2) || (mPos.row == 4 && tPos.row == 5)) &&
+        (abs(mPos.col - tPos.col) == 1) &&
+        (target == nullptr) &&
+        (moved->getPassant() == true)) {
         //We do not need to check (pieces[mPos.row][tPos.col]->getPassant() == true))
         //since we already checked that in IsLegal
         RegularMove = false;
