@@ -11,7 +11,7 @@ class Piece {
 	public:
 	void setMoved(bool val);
 	bool getMoved();
-	Color getColor();
+	Color getColor() const;
 	void updatePos(Pos newPos);
 	Pos getPos();
 	virtual bool isPawn();
@@ -20,7 +20,6 @@ class Piece {
         virtual bool IsLegal(Pos newPos, std::vector <std::vector<Piece*>> pieces) = 0;
         virtual std::vector<Pos> getPossibleMoves(std::vector<std::vector<Piece*>> pieces) = 0;
 	Piece(Color c, Pos pos, bool hasMoved = false);
-        friend std::ostream& operator<<(std::ostream& out, const Piece& p);
 	//No need a destructor since there is no heap allocated field and default dest is enough
 };
 

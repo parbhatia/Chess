@@ -11,4 +11,6 @@ public:
 	King(Color c, Pos pos, bool hasMoved = false);
 };
 
+std::ostream& operator<<(std::ostream& out, const King& p);
+
 #endif

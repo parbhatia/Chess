@@ -12,4 +12,6 @@ public:
 	Queen(Color c, Pos pos, bool hasMoved = false);
 };
 
+std::ostream& operator<<(std::ostream& out, const Queen& p);
+
 #endif

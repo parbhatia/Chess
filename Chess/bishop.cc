@@ -1,4 +1,5 @@
 #include "bishop.h"
+#include <iostream>
 #include <cmath>
 using namespace std;
 
@@ -93,3 +94,10 @@ vector<Pos> Bishop::getPossibleMoves(vector <vector<Piece*>> pieces) {  //We nee
 }
 
 Bishop::Bishop(Color c, Pos Pos, bool hasMoved): Piece(c , Pos) {}
+
+ostream& operator<<(ostream& out, const Bishop& p) {
+    if (p.getColor() == White) out << 'B';
+    else out << 'b';
+    return out;
+}
+

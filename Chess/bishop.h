@@ -13,4 +13,6 @@ public:
 	Bishop(Color c, Pos Pos, bool hasMoved = false);
 };
 
+std::ostream& operator<<(std::ostream& out, const Bishop& p)
+
 #endif

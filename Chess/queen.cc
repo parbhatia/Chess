@@ -1,5 +1,6 @@
 #include "queen.h"
 #include <cmath>
+#include <iostream>
 using namespace std;
 
 bool Queen::IsLegal(Pos newPos, vector <vector<Piece*>> pieces) {  //Assuming newPos is either empty or enemy
@@ -166,3 +167,10 @@ vector<Pos> Queen::getPossibleMoves(vector<vector<Piece*>> pieces) { //We need t
 }
 
 Queen::Queen(Color c, Pos pos, bool hasMoved): Piece{c, pos, hasMoved} {}
+
+
+ostream& operator<<(ostream& out, const Queen& p) {
+    if (p.getColor() == White) out << 'Q';
+    else out << 'q';
+    return out;
+}

@@ -1,4 +1,5 @@
 #include "king.h"
+#include <iostream>
 using namespace std;
 
 bool King::IsLegal(Pos newPos, vector <vector<Piece*>> pieces) {  //Assuming newPos is either empty or enemy
@@ -125,3 +126,9 @@ vector<Pos> King::getPossibleMoves(vector <vector<Piece*>> pieces) {
 }
 
 King::King(Color c, Pos pos, bool hasMoved) : Piece{c,pos} {}
+
+ostream& operator<<(ostream& out, const King& p) {
+    if (p.getColor() == White) out << 'K';
+    else out << 'k';
+    return out;
+}

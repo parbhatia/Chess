@@ -12,4 +12,6 @@ public:
 	Rook(Color c, Pos pos, bool hasMoved = false);
 };
 
+std::ostream& operator<<(std::ostream& out, const Rook& p);
+
 #endif

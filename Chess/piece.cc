@@ -10,7 +10,7 @@ bool Piece::getMoved() {
 	return hasMoved;
 }
 
-Color Piece::getColor(){
+Color Piece::getColor() const{
 	return color;
 }
 

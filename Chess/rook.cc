@@ -1,4 +1,5 @@
 #include "rook.h"
+#include <iostream>
 using namespace std;
 
 bool Rook::IsLegal(Pos newPos, vector <vector<Piece*>> pieces) {  //Assuming newPos is either empty or enemy
@@ -83,3 +84,9 @@ vector<Pos> Rook::getPossibleMoves(vector <vector<Piece*>> pieces) {  //We need 
 }
 
 Rook::Rook(Color c, Pos pos, bool hasMoved): Piece{c, pos, hasMoved} {}
+
+ostream& operator<<(ostream& out, const Rook& p) {
+    if (p.getColor() == White) out << 'R';
+    else out << 'r';
+    return out;
+}

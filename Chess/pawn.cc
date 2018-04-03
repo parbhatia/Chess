@@ -1,4 +1,5 @@
 #include "pawn.h"
+#include <iostream>
 using namespace std;
 
 bool Pawn::isPawn() {
@@ -84,3 +85,10 @@ vector<Pos> Pawn::getPossibleMoves(vector<vector<Piece*>> pieces) {
 }
 
 Pawn::Pawn(Color c, Pos pos, bool hasMoved, bool enPassant): Piece{c ,pos, hasMoved}, enPassant{enPassant} {}
+
+ostream& operator<<(ostream& out, const Pawn& p) {
+    if (p.getColor() == White) out << 'P';
+    else out << 'p';
+    return out;
+}
+
