@@ -32,13 +32,9 @@ void Board::insert (Pos pos, char letter) {
     else if (letter == 'q') { pieces[r][c] = new Queen(Black,pos); }
     else if (letter == 'k') { pieces[r][c] = new King(Black,pos); }
     else { pieces[r][c] = new Pawn(Black,pos); } //letter is 'p'
-    //notify TextDisplay of insert
-    td->insert(pos,letter);
 }
 void Board::remove (Pos pos) {
     pieces[pos.row][pos.col] = NULL;
-    //notify TextDisplay of remove
-    td->remove(pos);
 }
 vector<vector<Piece*>> Board::getPieces() const { return pieces; }
 

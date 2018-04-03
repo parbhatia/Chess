@@ -14,7 +14,6 @@
 		4BD56085207335B3005A2AF0 /* king.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5606C207335B2005A2AF0 /* king.cc */; };
 		4BD56086207335B3005A2AF0 /* pawn.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5606D207335B2005A2AF0 /* pawn.cc */; };
 		4BD56087207335B3005A2AF0 /* board.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5606E207335B2005A2AF0 /* board.cc */; };
-		4BD56088207335B3005A2AF0 /* textdisplay.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5606F207335B2005A2AF0 /* textdisplay.cc */; };
 		4BD56089207335B3005A2AF0 /* bishop.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD56070207335B2005A2AF0 /* bishop.cc */; };
 		4BD5608A207335B3005A2AF0 /* humanPlayer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD56071207335B2005A2AF0 /* humanPlayer.cc */; };
 		4BD5608B207335B3005A2AF0 /* piece.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD56072207335B2005A2AF0 /* piece.cc */; };
@@ -51,14 +50,12 @@
 		4BD5606C207335B2005A2AF0 /* king.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = king.cc; sourceTree = "<group>"; };
 		4BD5606D207335B2005A2AF0 /* pawn.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = pawn.cc; sourceTree = "<group>"; };
 		4BD5606E207335B2005A2AF0 /* board.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = board.cc; sourceTree = "<group>"; };
-		4BD5606F207335B2005A2AF0 /* textdisplay.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = textdisplay.cc; sourceTree = "<group>"; };
 		4BD56070207335B2005A2AF0 /* bishop.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bishop.cc; sourceTree = "<group>"; };
 		4BD56071207335B2005A2AF0 /* humanPlayer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = humanPlayer.cc; sourceTree = "<group>"; };
 		4BD56072207335B2005A2AF0 /* piece.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = piece.cc; sourceTree = "<group>"; };
 		4BD56073207335B2005A2AF0 /* rook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rook.h; sourceTree = "<group>"; };
 		4BD56074207335B2005A2AF0 /* queen.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = queen.cc; sourceTree = "<group>"; };
 		4BD56075207335B2005A2AF0 /* queen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = queen.h; sourceTree = "<group>"; };
-		4BD56076207335B2005A2AF0 /* textdisplay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textdisplay.h; sourceTree = "<group>"; };
 		4BD56077207335B2005A2AF0 /* piecepositions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = piecepositions.h; sourceTree = "<group>"; };
 		4BD56078207335B2005A2AF0 /* color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = color.h; sourceTree = "<group>"; };
 		4BD56079207335B2005A2AF0 /* piece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = piece.h; sourceTree = "<group>"; };
@@ -132,8 +129,6 @@
 				4BD56075207335B2005A2AF0 /* queen.h */,
 				4BD56069207335B1005A2AF0 /* rook.cc */,
 				4BD56073207335B2005A2AF0 /* rook.h */,
-				4BD5606F207335B2005A2AF0 /* textdisplay.cc */,
-				4BD56076207335B2005A2AF0 /* textdisplay.h */,
 			);
 			path = Chess;
 			sourceTree = "<group>";
@@ -206,7 +201,6 @@
 				4BD56081207335B3005A2AF0 /* player.cc in Sources */,
 				4BD5609020733AD4005A2AF0 /* test.cpp in Sources */,
 				4BD56087207335B3005A2AF0 /* board.cc in Sources */,
-				4BD56088207335B3005A2AF0 /* textdisplay.cc in Sources */,
 				4BD56082207335B3005A2AF0 /* knight.cc in Sources */,
 				4BD5608D207335B3005A2AF0 /* Makefile in Sources */,
 				4BD56084207335B3005A2AF0 /* rook.cc in Sources */,
