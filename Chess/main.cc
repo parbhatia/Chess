@@ -59,7 +59,7 @@ int main() {
         cout << "Black: " << bpoints << endl;
         return 0;
       }
-      if (cmd == "setup") {
+      /*if (cmd == "setup") {
         already_setup = true;
         bool w_kingset = false;
         bool b_kingset = false;
@@ -158,20 +158,20 @@ int main() {
         }
         cout << "Setup complete." << endl;
         cout << "Please begin new game." << endl;
-      }//end of setup
+      }//end of setup*/
       if (cmd == "game") {
         //CREATE PLAYERS
         string wh;
         string bl;
         cin >> wh >> bl;
         //White player
-        if (wh == "human") { wplayer = HumanPlayer(White, &b, nullptr); }
+        if (wh == "human") { wplayer = new HumanPlayer(White, &b, nullptr); }
         if (wh == "computer1") {};
         if (wh == "computer2") {};
         if (wh == "computer3") {};
         if (wh == "computer4") {};
         //Black player
-        if (bl == "human") { bplayer = HumanPlayer(Black, &b, nullptr); }
+        if (bl == "human") { bplayer = new HumanPlayer(Black, &b, nullptr); }
         if (bl == "computer1") {};
         if (bl == "computer2") {};
         if (bl == "computer3") {};
@@ -212,6 +212,9 @@ int main() {
           b.insert(p7,'p');
           b.insert(p8,'p');
           //Players set their king pointer
+            //King *wk = static_cast<Piece*> (b.getPieces()[7][4]);
+            //King *bk = static_cast<Piece*> (b.getPieces()[0][4]);
+            
           wplayer->setKing(b.getPieces()[7][4]);
           bplayer->setKing(b.getPieces()[0][4]);
         }

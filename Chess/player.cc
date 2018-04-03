@@ -11,7 +11,7 @@ bool Player::LegalMoveExists() {
             vector <Pos> possibleMoves = p->getPossibleMoves(B->getPieces());
                 for (auto &m:possibleMoves) {/*legal move found if king is
                                               not attacked after the move*/
-                    B->makeTheMove(p, B->getPieces()[m.row][m.col]);
+                    B->makeTheMove(p, B->getPieces()[m.row][m.col],' ');
                     if (!B->isAttacked(king->getPos())) {
                         B->undo();
                         return true;
@@ -26,8 +26,8 @@ bool Player::LegalMoveExists() {
 return false;
 }
 
-void Player::setKing(King* k) {
-    king = k;
+void Player::setKing(Piece* k) {
+    king = static_cast<King*>(k);
 }
 
 King* Player::getKing() {

@@ -12,7 +12,7 @@ class Player {
 	public:
 	//checks if player has any legal moves:
 	bool LegalMoveExists();
-	void setKing(King* K);
+	void setKing(Piece* K);
 	King* getKing();
     virtual void move(const Pos curPos, const Pos newPos, char prm = 'Q') = 0;
 	Player(Color color, Board* B, King* king = NULL);
