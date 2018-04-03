@@ -40,11 +40,11 @@ void Board::remove (Pos pos) {
     //notify TextDisplay of remove
     td->remove(pos);
 }
-vector<vector<Piece*>> getPieces() { return pieces; }
-Board() { //sets up new 8x8 board
-    td = new TextDisplay();
+vector<vector<Piece*>> Board::getPieces() { return pieces; }
+
+Board::Board() { //sets up new 8x8 board
     for(int i=0; i<8; ++i) {
-        vector<*Pieces> P;
+        vector<Piece*> P;
         for (int j=0; j<8; ++j) {
             P.emplace_back(NULL);
         }
@@ -52,16 +52,14 @@ Board() { //sets up new 8x8 board
     }
 }
 
-void notify(Pos pos char promo) {
-    td->move(pos,promo);
+void Board::notify(Pos pos, char promo) {
+    //
 }
 
-bool ischeck(Pos kpos, Pos) {}
-
-Board::~Board();
+Board::~Board() {}
 
 
-ostream &operator<<(ostream &os, const Board &b) {
+ostream &Board::operator<<(ostream &os, const Board &b) {
     os<<(*td);
     return os;
 }
@@ -79,7 +77,7 @@ void Board::makeTheMove(Piece* moved, Piece* target){
         //We do not need to check (pieces[mPos.row][tPos.col]->getPassant() == true))
         //since we already checked that in IsLegal
         RegularMove = false;
-        Move *m = new Move(mPos, tPos, pieces[mPos.row][tPos.col], "enPassantCapture");
+        Move *m = new Move{mPos, tPos, pieces[mPos.row][tPos.col], "enPassantCapture"};
         moves.emplace_back(m);
         target = moved; //capturing pawn moves to target
         moved = nullptr; //old position of the capturing pawn
@@ -124,11 +122,11 @@ void Board::makeTheMove(Piece* moved, Piece* target){
     
     
     if ((moved->getMoved() == false) &&   //short-castling condition for both colors
-        ((mPos.row == 0) || (mPos.row == 7)) && (mPos.col = 4) &&
+        ((mPos.row == 0) || (mPos.row == 7)) && (mPos.col == 4) &&
         (tPos.row == 6)) {
         RegularMove = true;
-        Move *m = new Move(mPos, tPos, nullptr, "Castling");
-        moves->emplace_back(m);
+        Move *m = new Move{mPos, tPos, nullptr, "Castling"};
+        moves.emplace_back(m);
         target = moved;
         moved = nullptr;
         pieces[mPos.row][5] = pieces[mPos.row][7]; //moves the castle to the new loc
@@ -136,11 +134,11 @@ void Board::makeTheMove(Piece* moved, Piece* target){
     }
     
     if ((moved->getMoved() == false) &&   //long-castling condition for both colors
-        ((mPos.row == 0) || (mPos.row == 7)) && (mPos.col = 4) &&
+        ((mPos.row == 0) || (mPos.row == 7)) && (mPos.col == 4) &&
         (tPos.row == 2)) {
         RegularMove = true;
-        Move *m = new Move(mPos, tPos, nullptr, "Castling");
-        moves->emplace_back(m);
+        Move *m = new Move{mPos, tPos, nullptr, "Castling"};
+        moves.emplace_back(m);
         target = moved;
         moved = nullptr;
         pieces[mPos.row][5] = pieces[mPos.row][0]; //moves the castle to the new loc
@@ -148,7 +146,7 @@ void Board::makeTheMove(Piece* moved, Piece* target){
     }
     
     if(RegularMove == true) {
-        Move* m = new Move(mPos, tPos, target, "Regular");
+        Move* m = new Move{mPos, tPos, target, "Regular"};
         moves.emplace_back(m); //info about move is pushed to moved vec in board
         target = moved; //target cell points to moved piece
         moved = nullptr; //freeing old cell
@@ -164,16 +162,18 @@ bool Board::outOfRange(const Pos p) {
 }
 
 bool Board::isAttacked(Pos cellPos, vector< vector<Piece*> > pieces) {
-    for(auto &p:pieces) {
-        //skipping owned pieces and empty cells:
-        if(p == nullptr) continue;
-        if(color == p->getColor()) continue;
-        //checking if p can move to curPos
-        if (p->IsLegal(curPos, p)){
-            return true;
+    Piece* piece = pieces[cellPos.row][cellPos.col];
+    for(auto &row:pieces) {
+        for(auto &p:row) {
+            //skipping owned pieces and empty cells:
+            if(p == nullptr) continue;
+            if(piece->getColor() == p->getColor()) continue;
+            //checking if p can move to curPos
+            if (p->IsLegal(cellPos, pieces)){
+                return true;
+            }
         }
     }
-    
     return false; //has checked all enemy pieces and none of them attacks player's king
 }
 

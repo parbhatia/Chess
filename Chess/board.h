@@ -17,6 +17,10 @@ class Board {
 	void updateTD(Pos oldpos, Pos newpos, char promo);
 	std::vector<std::vector<Piece*>> getPieces();
     std::vector <Move*>* getMoves();
+    bool outOfRange(const Pos p);
+    bool isAttacked(Pos cellPos, std::vector< std::vector<Piece*> > pieces);
+    void makeTheMove(Piece* moved, Piece* target);
+    void notify(Pos pos, char promo);
 	Board();
 	~Board();
     friend std::ostream &operator<<(std::ostream &os, const Board &b);
