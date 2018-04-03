@@ -20,7 +20,6 @@
 		4BD5608C207335B3005A2AF0 /* queen.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD56074207335B2005A2AF0 /* queen.cc */; };
 		4BD5608D207335B3005A2AF0 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5607A207335B2005A2AF0 /* Makefile */; };
 		4BD5608E207335B3005A2AF0 /* computerPlayer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5607E207335B3005A2AF0 /* computerPlayer.cc */; };
-		4BD5609020733AD4005A2AF0 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5608F20733AD4005A2AF0 /* test.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -66,7 +65,6 @@
 		4BD5607E207335B3005A2AF0 /* computerPlayer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = computerPlayer.cc; sourceTree = "<group>"; };
 		4BD5607F207335B3005A2AF0 /* computerPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = computerPlayer.h; sourceTree = "<group>"; };
 		4BD56080207335B3005A2AF0 /* errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = errors.h; sourceTree = "<group>"; };
-		4BD5608F20733AD4005A2AF0 /* test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,7 +98,6 @@
 			isa = PBXGroup;
 			children = (
 				4BD56070207335B2005A2AF0 /* bishop.cc */,
-				4BD5608F20733AD4005A2AF0 /* test.cpp */,
 				4BD56065207335B1005A2AF0 /* bishop.h */,
 				4BD5606E207335B2005A2AF0 /* board.cc */,
 				4BD56062207335B1005A2AF0 /* board.h */,
@@ -199,7 +196,6 @@
 				4BD56083207335B3005A2AF0 /* main.cc in Sources */,
 				4BD5608C207335B3005A2AF0 /* queen.cc in Sources */,
 				4BD56081207335B3005A2AF0 /* player.cc in Sources */,
-				4BD5609020733AD4005A2AF0 /* test.cpp in Sources */,
 				4BD56087207335B3005A2AF0 /* board.cc in Sources */,
 				4BD56082207335B3005A2AF0 /* knight.cc in Sources */,
 				4BD5608D207335B3005A2AF0 /* Makefile in Sources */,
