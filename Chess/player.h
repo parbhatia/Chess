@@ -20,9 +20,4 @@ class Player {
 	~Player();
 };
 
-//should we make these Board methods?
-void makeTheMove(Piece* moved, Piece* target, Board* b);
-bool outOfRange(const Pos p);
-bool isAttacked(Piece* p, std::vector<Piece*> pieces);
-
 #endif
