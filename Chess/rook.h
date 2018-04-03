@@ -3,12 +3,11 @@
 
 #include "piece.h"
 #include "pos.h"
-#include <vector>
 #include "color.h"
 
 class Rook: public Piece {
-	bool IsLegal(Pos newPos, vector <vector<Piece*>> pieces) override;
-	vector<Pos> getPossibleMoves(vector <vector<Piece*>> pieces) override;
+    bool IsLegal(Pos newPos, std::vector <std::vector<Piece*>> pieces) override;
+    std::vector<Pos> getPossibleMoves(std::vector <std::vector<Piece*>> pieces) override;
 	Rook(Color c, Pos pos, bool hasMoved);
 };
 

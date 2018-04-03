@@ -2,6 +2,7 @@
 #define HUMANPLAYER_H
 
 #include "player.h"
+#include "king.h"
 
 class HumanPlayer: public Player {
 	public:

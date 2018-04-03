@@ -7,8 +7,8 @@
 
 
 class Queen: public Piece {
-	bool IsLegal(Pos newPos, vector <vector<Piece*>> pieces) override;
-	vector<Pos> getPossibleMoves(vector<vector<Piece*>> pieces) override;
+    bool IsLegal(Pos newPos, std::vector <std::vector<Piece*>> pieces) override;
+    std::vector<Pos> getPossibleMoves(std::vector<std::vector<Piece*>> pieces) override;
 	Queen(Color c, Pos pos, bool hasMoved = false);
 };
 

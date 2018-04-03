@@ -23,20 +23,24 @@ bool Pawn::IsLegal(Pos newPos, vector <vector<Piece*>> pieces) {
     } else {
       return false;
     }
-  } else if (getColor() == White) {
-    if(((getPos().col == newPos.col) && (getPos().row == (newPos.row + 1)) && (pieces[newPos.row][newPos.col] == nullptr)) ||  //1 forward
-       ((getMoved() == false) && (getPos().col == newPos.col) && (getPos().row == (newPos.row + 2)) &&   //2 forward 
+  }
+    
+  if (getColor() == White) {
+      if(((getPos().col == newPos.col) && (getPos().row == (newPos.row + 1)) && (pieces[newPos.row][newPos.col] == nullptr)) ||  //1 forward
+        ((getMoved() == false) && (getPos().col == newPos.col) && (getPos().row == (newPos.row + 2)) &&   //2 forward
         (pieces[newPos.row][newPos.col] == nullptr) && (pieces[newPos.row + 1][newPos.col] == nullptr)) ||
-       (((getPos().col == (newPos.col + 1)) || (getPos().col == (newPos.col - 1))) && (getPos().row == (newPos.row + 1)) &&   //1 diagnol
+        (((getPos().col == (newPos.col + 1)) || (getPos().col == (newPos.col - 1))) && (getPos().row == (newPos.row + 1)) &&   //1 diagnol
         (pieces[newPos.row][newPos.col] != nullptr) && (pieces[newPos.row][newPos.col]->getColor() == Black)) ||  //regular attack
         ((pieces[newPos.row][newPos.col] == nullptr) && (pieces[newPos.row + 1][newPos.col] != nullptr) &&  //enPassant
-         (pieces[newPos.row + 1][newPos.col]->getColor() == Black) && (pieces[newPos.row + 1][newPos.col]->getPassant() == true) &&
-         (getPassant() == true))) {
-      return true;
-    } else {
-      return false;
-    }
+        (pieces[newPos.row + 1][newPos.col]->getColor() == Black) && (pieces[newPos.row + 1][newPos.col]->getPassant() == true) &&
+        (getPassant() == true))) {
+            return true;
+            
+        } else {
+            return false;
+        }
   }
+    return false;
 }
 
       

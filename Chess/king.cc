@@ -11,7 +11,9 @@ bool King::IsLegal(Pos newPos, vector <vector<Piece*>> pieces) {  //Assuming new
 		((getPos().row == newPos.row + 1) && (getPos().col == newPos.col - 1)) || //up-right
 		((getPos().row == newPos.row + 1) && (getPos().col == newPos.col + 1))) { //up-left
 		return true;
-	} else if (getMoved() == false) {
+	}
+    
+    if (getMoved() == false) {
 		if (getColor() == White) {
 			if ((newPos.row == 7) && (newPos.col == 6) &&            //White short-castling e1-g1
 				(pieces[newPos.row][newPos.col] == nullptr) &&       //g1 must be empty
@@ -23,10 +25,12 @@ bool King::IsLegal(Pos newPos, vector <vector<Piece*>> pieces) {  //Assuming new
 				(pieces[newPos.row][newPos.col - 1] == nullptr) &&   //b1 must be empty
 				(pieces[newPos.row][newPos.col + 1] == nullptr) &&   //d1 must be empty
 				(pieces[newPos.row][newPos.col - 2]->getMoved() == false)) { //left-bottom castle must not moved
+                return true;
 			} else {
 				return false;
 			}
-		} else if (getColor() == Black) {
+		}
+        if (getColor() == Black) {
 			if ((newPos.row == 0) && (newPos.col == 6) &&            //Black short-castling e7-g7
 				(pieces[newPos.row][newPos.col] == nullptr) &&       //g7 must be empty
 				(pieces[newPos.row][newPos.col - 1] == nullptr) &&   //f7 must be empty
@@ -37,13 +41,14 @@ bool King::IsLegal(Pos newPos, vector <vector<Piece*>> pieces) {  //Assuming new
 				(pieces[newPos.row][newPos.col - 1] == nullptr) &&   //b7 must be empty
 				(pieces[newPos.row][newPos.col + 1] == nullptr) &&   //d7 must be empty
 				(pieces[newPos.row][newPos.col - 2]->getMoved() == false)) { //left-top castle must not moved
+                return true;
 			} else {
 				return false;
 			}
 		}
-	} else {
-		return false;
 	}
+    
+    return false;
 }
 
 
@@ -115,6 +120,8 @@ vector<Pos> King::getPossibleMoves(vector <vector<Piece*>> pieces) {
 	if((getPos().row == 0) && (getPos().col == 4) && (IsLegal({0, 6}, pieces) == true)) {
         vec.push_back({0,6});
 	}
+    
+    return vec;
 }
 
 King::King(Color c, Pos pos, bool hasMoved) : Piece{c,pos} {}
