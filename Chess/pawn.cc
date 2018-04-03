@@ -1,6 +1,10 @@
 #include "pawn.h"
 using namespace std;
 
+bool Pawn::isPawn() {
+  return true;
+}
+
 bool Pawn::getPassant() {
   return enPassant;
 }
