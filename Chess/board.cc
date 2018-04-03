@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <cstdlib>
 #include "move.h"
 #include "piece.h"
 #include "king.h"
@@ -12,9 +11,6 @@
 #include "rook.h"
 #include "bishop.h"
 using namespace std;
-
-class TextDisplay;
-class XWindow;
 
 
 void Board::insert (Pos pos, char letter) {
@@ -42,7 +38,7 @@ Board::Board() { //sets up new 8x8 board
     for(int i=0; i<8; ++i) {
         vector<Piece*> P;
         for (int j=0; j<8; ++j) {
-            P.emplace_back(NULL);
+            P.push_back(NULL);
         }
         pieces.emplace_back(P);
     }
