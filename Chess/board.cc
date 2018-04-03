@@ -75,8 +75,8 @@ void makeTheMove(Piece* moved, Piece* target){
         //We do not need to check (pieces[mPos.row][tPos.col]->getPassant() == true))
         //since we already checked that in IsLegal
 		RegularMove = false;
-	Move *m = new Move(mPos, tPos, pieces[mPos.row][tPos.col], "enPassantCapture");
-	moves->emplace_back(m);
+	    Move *m = new Move(mPos, tPos, pieces[mPos.row][tPos.col], "enPassantCapture");
+	    moves->emplace_back(m);
    		target = moved; //capturing pawn moves to target
    		moved = nullptr; //old position of the capturing pawn
    		pieces[mPos.row][tPos.col] = nullptr; //position of the captured pawn
@@ -108,10 +108,10 @@ if ((moves.empty() == false) && (moves.back()->specialMove == "enPassantSetup"))
 
 	if ((moved->getMoved() == false) && //possible enPassant setup (2 forward move)
 		((mPos.row == 1 && tPos.row == 3) || (mPos.row == 6 && tPos.row == 4))) {
-		RegularMove = true;
-	Move *m = new Move(mPos, tPos, nullptr, "enPassantSetup");
-	moves->emplace_back(m);
-	moved->setPassant(true);
+		RegularMove = false;
+	    Move *m = new Move(mPos, tPos, nullptr, "enPassantSetup");
+	    moves->emplace_back(m);
+	    moved->setPassant(true);
 			target = moved; //2 forward move
 			moved = nullptr; 
 			pieces[tPos.row][tPos.col - 1]->setPassant(true);
@@ -122,7 +122,7 @@ if ((moves.empty() == false) && (moves.back()->specialMove == "enPassantSetup"))
 	if ((moved->getMoved() == false) &&   //short-castling condition for both colors
 		((mPos.row == 0) || (mPos.row == 7)) && (mPos.col = 4) &&
 		(tPos.row == 6)) {
-		RegularMove = true;
+		RegularMove = false;
 	Move *m = new Move(mPos, tPos, nullptr, "Castling");
 	moves->emplace_back(m);
 	target = moved;
@@ -134,7 +134,7 @@ if ((moves.empty() == false) && (moves.back()->specialMove == "enPassantSetup"))
 	if ((moved->getMoved() == false) &&   //long-castling condition for both colors
 		((mPos.row == 0) || (mPos.row == 7)) && (mPos.col = 4) &&
 		(tPos.row == 2)) {
-		RegularMove = true;
+		RegularMove = false;
 	Move *m = new Move(mPos, tPos, nullptr, "Castling");
 	moves->emplace_back(m);
 	target = moved;
