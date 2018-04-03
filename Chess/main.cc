@@ -58,7 +58,7 @@ int main() {
         cout << "Final Score:" << endl;
         cout << "White: " << wpoints << endl;
         cout << "Black: " << bpoints << endl;
-        return;
+        return 0;
       }
       if (cmd == "setup") {
         already_setup = true;
@@ -166,13 +166,13 @@ int main() {
         string bl;
         cin >> wh >> bl;
         //White player
-        if (wh == "human") { wplayer = HumanPlayer(White, &b, NULL); }
+        if (wh == "human") { wplayer = HumanPlayer(White, &b, nullptr); }
         if (wh == "computer1") {};
         if (wh == "computer2") {};
         if (wh == "computer3") {};
         if (wh == "computer4") {};
         //Black player
-        if (bl == "human") { bplayer = HumanPlayer(Black, &b, NULL); }
+        if (bl == "human") { bplayer = HumanPlayer(Black, &b, nullptr); }
         if (bl == "computer1") {};
         if (bl == "computer2") {};
         if (bl == "computer3") {};
@@ -226,7 +226,7 @@ int main() {
             cout << "Final Score:" << endl;
             cout << "White: " << wpoints << endl;
             cout << "Black: " << bpoints << endl;
-            return;
+            return 0;
           }
           if (cmd == "resign") {
             game_finished = true; //will break from game on next iteraiton
