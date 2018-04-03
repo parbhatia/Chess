@@ -11,6 +11,6 @@ public:
 	Knight(Color c, Pos pos, bool hasMoved = false);
 };
 
-std::ostream& operator<<(std::ostream& out, const Knight& p)
+std::ostream& operator<<(std::ostream& out, const Knight& p);
 
 #endif

@@ -15,6 +15,6 @@ class Pawn : public Piece {
 	Pawn(Color c, Pos pos, bool hasMoved = false, bool enPassant = false);
 };
 
-std::ostream& operator<<(std::ostream& out, const Pawn& p)
+std::ostream& operator<<(std::ostream& out, const Pawn& p);
 
 #endif

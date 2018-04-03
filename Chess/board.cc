@@ -113,25 +113,26 @@ void Board::makeTheMove(Piece* moved, Piece* target, char prm){
 	bool RegularMove = true;
 
 	//Promotion Condition
-	if(moved->isPawn() == true) {
-		Color c;
+	if((moved->isPawn() == true) &&
+       ((tPos.row == 7) || (tPos.row == 0))) {
+        Color c = Black;
 		if(tPos.row == 7) {
 			c = Black;
 		} else if(tPos.row == 0) {
 			c = Black;
 		}
-
+        Piece* promotionPiece = NULL;
 		if(prm == 'R') {
-			Piece* promotionPiece = new Rook(c, {tPos.row, tPos.col});
+			promotionPiece = new Rook(c, {tPos.row, tPos.col});
 		} else if (prm == 'B') {
-			Piece* promotionPiece = new Bishop(c, {tPos.row, tPos.col});
+			promotionPiece = new Bishop(c, {tPos.row, tPos.col});
 		} else {
-			Piece* promotionPiece = new Queen(c, {tPos.row, tPos.col});
+			promotionPiece = new Queen(c, {tPos.row, tPos.col});
 		}
 		target = promotionPiece;
 		moved = nullptr;
-		Move *m = new Move(mPos, tPos, nullptr, "Promotion");
-		moves->emplace_back(m);
+        Move *m = new Move{mPos, tPos, nullptr, "Promotion"};
+		moves.emplace_back(m);
 	}
 		
 		
@@ -142,10 +143,10 @@ void Board::makeTheMove(Piece* moved, Piece* target, char prm){
 		(target == nullptr) &&
 		(moved->isPawn() == true)) {
 		RegularMove = false;
-		Move *m = new Move(mPos, tPos, pieces[mPos.row][tPos.col], "enPassantCapture");
-		moves->emplace_back(m);
+        Move *m = new Move{mPos, tPos, pieces[mPos.row][tPos.col], "enPassantCapture"};
+		moves.emplace_back(m);
    		target = moved; //capturing pawn moves to target
-   		target->UpdatePos(tPos); //Update Position of the piece
+   		target->updatePos(tPos); //Update Position of the piece
    		moved = nullptr; //old position of the capturing pawn
    		pieces[mPos.row][tPos.col] = nullptr; //position of the captured pawn
    	}
@@ -177,11 +178,11 @@ void Board::makeTheMove(Piece* moved, Piece* target, char prm){
 	if ((moved->isPawn() == true) && //possible enPassant setup (2 forward move)
 		((mPos.row == 1 && tPos.row == 3) || (mPos.row == 6 && tPos.row == 4))) {
 		RegularMove = false;
-	    Move *m = new Move(mPos, tPos, nullptr, "enPassantSetup");
-	    moves->emplace_back(m);
+        Move *m = new Move{mPos, tPos, nullptr, "enPassantSetup"};
+	    moves.emplace_back(m);
 	    moved->setPassant(true);
 		target = moved; //2 forward move
-		target->UpdatePos(tPos);
+		target->updatePos(tPos);
 		moved = nullptr; 
 		pieces[tPos.row][tPos.col - 1]->setPassant(true);
 		pieces[tPos.row][tPos.col + 1]->setPassant(true);
@@ -189,47 +190,47 @@ void Board::makeTheMove(Piece* moved, Piece* target, char prm){
 
 
 	if ((moved->getMoved() == false) &&   //short-castling condition for both colors
-		((mPos.row == 0) || (mPos.row == 7)) && (mPos.col = 4) &&
+		((mPos.row == 0) || (mPos.row == 7)) && (mPos.col == 4) &&
 		(tPos.row == 6)) {
 		RegularMove = false;
-	    Move *m = new Move(mPos, tPos, nullptr, "Castling");
-	    moves->emplace_back(m);
+        Move *m = new Move{mPos, tPos, nullptr, "Castling"};
+	    moves.emplace_back(m);
 	    target = moved;
-	    target->UpdatePos(tPos);
+	    target->updatePos(tPos);
 	    moved = nullptr;
 	    pieces[mPos.row][5] = pieces[mPos.row][7]; //moves the castle to the new loc
-	    pieces[mPos.row][5]->UpdatePos({mPos.row, 5})
+        pieces[mPos.row][5]->updatePos({mPos.row, 5});
 	    pieces[mPos.row][7] = nullptr;
 	    pieces[mPos.row][5]->setMoved(true);
 	}
 
 	if ((moved->getMoved() == false) &&   //long-castling condition for both colors
-		((mPos.row == 0) || (mPos.row == 7)) && (mPos.col = 4) &&
+		((mPos.row == 0) || (mPos.row == 7)) && (mPos.col == 4) &&
 		(tPos.row == 2)) {
 		RegularMove = false;
-	    Move *m = new Move(mPos, tPos, nullptr, "Castling");
-	    moves->emplace_back(m);
+        Move *m = new Move{mPos, tPos, nullptr, "Castling"};
+	    moves.emplace_back(m);
 	    target = moved;
-	    target->UpdatePos(tPos);
+	    target->updatePos(tPos);
 	     moved = nullptr;
 	    pieces[mPos.row][3] = pieces[mPos.row][0]; //moves the castle to the new loc
-	    pieces[mPos.row][3]->UpdatePos({mPos.row, 3})
+        pieces[mPos.row][3]->updatePos({mPos.row, 3});
 	    pieces[mPos.row][0] = nullptr; 
 	    pieces[mPos.row][3]->setMoved(true);
 	}
 
 	if(RegularMove == true) {
 		if(pieces[mPos.row][mPos.col]->getMoved() == false) {
-			Move* m = new Move(mPos, tPos, target, "FirstMove");
+            Move* m = new Move{mPos, tPos, target, "FirstMove"};
 			moves.emplace_back(m); //info about move is pushed to moved vec in board
 			target = moved; //target cell points to moved piece
-			target->UpdatePos(tPos);
+			target->updatePos(tPos);
 			moved = nullptr; //freeing old cell
 		} else {
-			Move* m = new Move(mPos, tPos, target, "Regular");
+            Move* m = new Move{mPos, tPos, target, "Regular"};
 			moves.emplace_back(m); //info about move is pushed to moved vec in board
 			target = moved; //target cell points to moved piece
-			target->UpdatePos(tPos);
+			target->updatePos(tPos);
 			moved = nullptr; //freeing old cell
 		}
 	}
@@ -240,8 +241,8 @@ void Board::undo() {
 	if(moves.empty() == false) {
 		if(moves.back()->specialMove == "enPassantCapture") {
 			pieces[moves.back()->oldPos.row][moves.back()->newPos.col] = moves.back()->captured; //Put the captured piece back
-			pieces[moves.back()->oldPos.row][moves.back()->oldPos.col] = pieces[newPos.row][newPos.col]; //Put the attacker pawn back
-			pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->UpdatePos(moves.back()->oldPos);
+			pieces[moves.back()->oldPos.row][moves.back()->oldPos.col] = pieces[moves.back()->newPos.row][moves.back()->newPos.col]; //Put the attacker pawn back
+			pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->updatePos(moves.back()->oldPos);
 			pieces[moves.back()->newPos.row][moves.back()->newPos.col] = nullptr;
 			pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->setPassant(true);
 			if ((moves.back()->newPos.col + 1 == moves.back()->oldPos.col) &&
@@ -259,31 +260,31 @@ void Board::undo() {
 			pieces[moves.back()->newPos.row][moves.back()->newPos.col] = nullptr;
 			pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->setPassant(false);
 			pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->setMoved(false);
-			pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->UpdatePos(moves.back()->oldPos);
+			pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->updatePos(moves.back()->oldPos);
 			pieces[moves.back()->newPos.row][moves.back()->newPos.col + 1]->setPassant(false);
 			pieces[moves.back()->newPos.row][moves.back()->newPos.col - 1]->setPassant(false);
   			moves.pop_back();
 		}
 		if(moves.back()->specialMove == "Castling") {
 			if(moves.back()->newPos.col == 2) { //long castling
-				pieces[moves.back()->oldPos.row][moves.back()->oldPos.col] = pieces[newPos.row][newPos.col]; //Put king back
-				pieces[moves.back()->newPos.row][moves.back()->newPos.col] = nullptr;
-				pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->setMoved(false);
-				pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->UpdatePos(moves.back()->oldPos);
-				pieces[moves.back()->newPos.row][0] = pieces[newPos.row][3];
-				pieces[moves.back()->newPos.row][3] = nullptr;
-				pieces[moves.back()->newPos.row][0]->setMoved(false);
-				pieces[moves.back()->oldPos.row][0]->UpdatePos({moves.back()->oldPos.row, 0});
-				moves.pop_back();
-			} else if (oves.back()->newPos.col == 6) { //short castling
 				pieces[moves.back()->oldPos.row][moves.back()->oldPos.col] = pieces[moves.back()->newPos.row][moves.back()->newPos.col]; //Put king back
 				pieces[moves.back()->newPos.row][moves.back()->newPos.col] = nullptr;
 				pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->setMoved(false);
-				pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->UpdatePos(moves.back()->oldPos);
-				pieces[moves.back()->newPos.row][7] = pieces[newPos.row][5];
+				pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->updatePos(moves.back()->oldPos);
+				pieces[moves.back()->newPos.row][0] = pieces[moves.back()->newPos.row][3];
+				pieces[moves.back()->newPos.row][3] = nullptr;
+				pieces[moves.back()->newPos.row][0]->setMoved(false);
+				pieces[moves.back()->oldPos.row][0]->updatePos({moves.back()->oldPos.row, 0});
+				moves.pop_back();
+			} else if (moves.back()->newPos.col == 6) { //short castling
+				pieces[moves.back()->oldPos.row][moves.back()->oldPos.col] = pieces[moves.back()->newPos.row][moves.back()->newPos.col]; //Put king back
+				pieces[moves.back()->newPos.row][moves.back()->newPos.col] = nullptr;
+				pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->setMoved(false);
+				pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->updatePos(moves.back()->oldPos);
+				pieces[moves.back()->newPos.row][7] = pieces[moves.back()->newPos.row][5];
 				pieces[moves.back()->newPos.row][5] = nullptr;
 				pieces[moves.back()->newPos.row][7]->setMoved(false);
-				pieces[moves.back()->oldPos.row][7]->UpdatePos({moves.back()->oldPos.row, 7});
+				pieces[moves.back()->oldPos.row][7]->updatePos({moves.back()->oldPos.row, 7});
 				moves.pop_back();
 			}
 		}
@@ -301,16 +302,16 @@ void Board::undo() {
 		}
 
 		if(moves.back()->specialMove == "Regular") {
-			pieces[moves.back()->oldPos.row][moves.back()->oldPos.col] = pieces[newPos.row][newPos.col];
+			pieces[moves.back()->oldPos.row][moves.back()->oldPos.col] = pieces[moves.back()->newPos.row][moves.back()->newPos.col];
 			pieces[moves.back()->newPos.row][moves.back()->newPos.col] = moves.back()->captured;
-			pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->UpdatePos(moves.back()->oldPos);
+			pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->updatePos(moves.back()->oldPos);
 			moves.pop_back();
 		}
 
 		if(moves.back()->specialMove == "FirstMove") {
-			pieces[moves.back()->oldPos.row][moves.back()->oldPos.col] = pieces[newPos.row][newPos.col];
+			pieces[moves.back()->oldPos.row][moves.back()->oldPos.col] = pieces[moves.back()->newPos.row][moves.back()->newPos.col];
 			pieces[moves.back()->newPos.row][moves.back()->newPos.col] = moves.back()->captured;
-			pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->UpdatePos(moves.back()->oldPos);
+			pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->updatePos(moves.back()->oldPos);
 			pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->setMoved(false);
 			moves.pop_back();
 		}
@@ -323,8 +324,6 @@ bool Board::outOfRange(const Pos p) {
     
     return false;
 }
-
-void Board::undo() {}
 
 bool Board::isAttacked(Pos cellPos) {
     Piece* piece = pieces[cellPos.row][cellPos.col];
