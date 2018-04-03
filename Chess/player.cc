@@ -13,10 +13,10 @@ bool Player::LegalMoveExists() {
                                               not attacked after the move*/
                     B->makeTheMove(p, B->getPieces()[m.row][m.col]);
                     if (!B->isAttacked(king->getPos())) {
-                        B.undo();
+                        B->undo();
                         return true;
                     }
-                    B.undo();
+                    B->undo();
                 }
             }
         }

@@ -4,8 +4,8 @@
 using namespace std;
 
 void HumanPlayer::move(Pos oldPos, Pos newPos, char prm){
-	Piece* curPiece = B->getPieces[oldPos.row][oldPos.col];
-	Piece* target = B->getPieces[newPos.row][newPos.col];//piece at newPos
+	Piece* curPiece = B->getPieces()[oldPos.row][oldPos.col];
+	Piece* target = B->getPieces()[newPos.row][newPos.col];//piece at newPos
 
 	if (B->outOfRange(oldPos) || B->outOfRange(newPos)) { //out of the board
 		cout << "INVALID" << endl;
@@ -19,13 +19,13 @@ void HumanPlayer::move(Pos oldPos, Pos newPos, char prm){
 	else if (curPiece->getColor() != color) { //not player's piece
         cout << "INVALID" << endl;
 	}
-	else if (target != NULL && target->color == color) {//player capturing its own piece
+	else if (target != NULL && target->getColor() == color) {//player capturing its own piece
         cout << "INVALID" << endl;
 	}
 	else {
-		if(IsLegal(newPos, B->getPieces())) {
+		if(curPiece->IsLegal(newPos, B->getPieces())) {
 			B->makeTheMove(curPiece, target);
-			if (B->isAttacked(king->getPos(), B->getPieces()) == true){
+			if (B->isAttacked(king->getPos()) == true){
 				B->undo();
 				std::cout << "INVALID" << std::endl;
 			}

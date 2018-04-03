@@ -161,7 +161,9 @@ bool Board::outOfRange(const Pos p) {
     return false;
 }
 
-bool Board::isAttacked(Pos cellPos, vector< vector<Piece*> > pieces) {
+void Board::undo() {}
+
+bool Board::isAttacked(Pos cellPos) {
     Piece* piece = pieces[cellPos.row][cellPos.col];
     for(auto &row:pieces) {
         for(auto &p:row) {
