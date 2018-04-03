@@ -21,10 +21,6 @@
 #include "errors.h"
 using namespace std;
 
-//test2
-//test
-//test
-
 int main() {
   string cmd;
 
