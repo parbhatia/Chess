@@ -1,4 +1,5 @@
 #include "pawn.h"
+#include "errors.h"
 #include <iostream>
 using namespace std;
 

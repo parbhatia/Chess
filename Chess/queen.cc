@@ -1,5 +1,6 @@
 #include "queen.h"
 #include <cmath>
+#include "errors.h"
 #include <iostream>
 using namespace std;
 

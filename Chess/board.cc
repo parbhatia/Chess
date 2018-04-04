@@ -238,7 +238,6 @@ void Board::makeTheMove(Pos mPos, Pos tPos, char prm){
     }
     
     if(RegularMove == true) {
-        throw(invalid_move());
         if(pieces[mPos.row][mPos.col]->getMoved() == false) {
             Move* m = new Move{mPos, tPos, pieces[tPos.row][tPos.col], "FirstMove"};
             moves.emplace_back(m); //info about move is pushed to moved vec in board
@@ -344,15 +343,16 @@ bool Board::outOfRange(const Pos p) const {
 
 bool Board::isAttacked(Pos cellPos) {
     Piece* piece = pieces[cellPos.row][cellPos.col];
-    for(auto &row:pieces) {
-        for(auto &p:row) {
+    for(int i=0; i<8; ++i) {
+        for(int y=0; y<8; ++y) {
             //skipping owned pieces and empty cells:
-            if(p == nullptr) continue;
-            if(piece->getColor() == p->getColor()) continue;
+            if(pieces[i][y] == nullptr) continue;
+            if(piece->getColor() == pieces[i][y]->getColor()) continue;
             //checking if p can move to curPos
-            if (p->IsLegal(cellPos, pieces)){
+            if (pieces[i][y]->IsLegal(cellPos, pieces)){
                 return true;
             }
+            
         }
     }
     return false; //has checked all enemy pieces and none of them attacks player's king

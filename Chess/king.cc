@@ -1,5 +1,6 @@
 #include "king.h"
 #include <iostream>
+#include "errors.h"
 using namespace std;
 
 bool King::IsLegal(Pos newPos, vector <vector<Piece*>> pieces) {  //Assuming newPos is either empty or enemy

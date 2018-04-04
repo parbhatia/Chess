@@ -1,4 +1,5 @@
 #include "rook.h"
+#include "errors.h"
 #include <iostream>
 using namespace std;
 

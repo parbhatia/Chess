@@ -33,9 +33,8 @@ void HumanPlayer::move(Pos oldPos, Pos newPos, char prm){
 			}
 			if (B->isAttacked(king->getPos()) == true){
 				B->undo();
-                //delete this
-                throw(tester());
-				//throw(invalid_move());
+                //not this error
+				throw(invalid_move());
 			}
 			else {
 				curPiece->setMoved(true);

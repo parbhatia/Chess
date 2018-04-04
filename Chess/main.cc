@@ -147,8 +147,8 @@ int main() {
                     }
                     ///////////ADD
                     /*if (wplayer->isChecked() || bplayer->isChecked()) {
-                        king_in_check = true;
-                    }*/
+                     king_in_check = true;
+                     }*/
                     //////////////
                     if (!king_in_check && w_kingset && b_kingset) setup_conditions_met = true;
                     if (setup_conditions_met) {
@@ -259,93 +259,113 @@ int main() {
                     cout << "new pos is " << new_pos.row << new_pos.col << endl;
                     //find out who's turn it is
                     if (turn == White) {
-                        try{
+                        try {
                             wplayer->move(old_pos, new_pos, promotion);
                             cout << "DEBUG: white move finished" << endl;
                         }
                         catch(invalid_move &o) {
-                            cout << "Invalid move" << endl;
-                            break;
+                            cout << "Invalid move. Try Again." << endl;
                         }
                         catch(outofrange &o) {
-                            cout << "Out of Range" << endl;
-                            break;
+                            cout << "Out of Range. Try Again." << endl;
                         }
                         catch(samepos &o) {
-                            cout << "Same position" << endl;
-                            break;
+                            cout << "Same position. Try Again." << endl;
                         }
                         catch(emptycell &o) {
-                            cout << "Empty cell" << endl;
-                            break;
+                            cout << "Empty cell. Try Again." << endl;
                         }
                         catch(notplayerpiece &o) {
-                            cout << "Not Player Piece" << endl;
-                            break;
+                            cout << "Not Player Piece. Try Again." << endl;
                         }
                         catch(ownpiece &o) {
-                            cout << "Own Piece" << endl;
-                            break;
+                            cout << "Own Piece. Try Again." << endl;
                         }
                         catch(illegalmove &o) {
-                            cout << "Illegal Move" << endl;
-                            break;
+                            cout << "Illegal Move. Try Again." << endl;
                         }
                         catch(tester &o) {
-                            cout << "Test pickle rick" << endl;
-                            break;
+                            cout << "Test pickle rick. Try Again." << endl;
                         }
-                    }
-                    if (turn == Black) {
-                        try{
+                    } else { //turn is Black
+                        try {
                             bplayer->move(old_pos, new_pos, promotion);
                             cout << "DEBUG: black move finished" << endl;
                         }
                         catch(invalid_move &o) {
-                            cout << "Invalid move" << endl;
-                            break;
+                            cout << "Invalid move. Try Again." << endl;
                         }
                         catch(outofrange &o) {
-                            cout << "Out of Range" << endl;
-                            break;
+                            cout << "Out of Range. Try Again." << endl;
                         }
                         catch(samepos &o) {
-                            cout << "Same position" << endl;
-                            break;
+                            cout << "Same position. Try Again." << endl;
                         }
                         catch(emptycell &o) {
-                            cout << "Empty cell" << endl;
-                            break;
+                            cout << "Empty cell. Try Again." << endl;
                         }
                         catch(notplayerpiece &o) {
-                            cout << "Not Player Piece" << endl;
-                            break;
+                            cout << "Not Player Piece. Try Again." << endl;
                         }
                         catch(ownpiece &o) {
-                            cout << "Own Piece" << endl;
-                            break;
+                            cout << "Own Piece. Try Again." << endl;
                         }
                         catch(illegalmove &o) {
                             cout << "Illegal Move" << endl;
-                            break;
                         }
                         catch(tester &o) {
                             cout << "Test pickle rick" << endl;
-                            break;
                         }
                     }
-                    
-                    ///// REDISPLAY TEXTDISPLAY ////
-                    cout<<b;
-                    ///////// SWITCH TURNS /////////
-                    if (turn == White) turn = Black;
-                    if (turn == Black) turn = White;
-                    ////////////////////////////////
-                    
-                }//end of move command
-            }
-            cout << "Please begin new game." << endl;
-        }//end of game command
-    }//end of one complete game, everything resets!
-}
+                    if (turn == Black) {
+                        bool legalexists = wplayer->LegalMoveExists();
+                        if (b.isAttacked(wplayer->getKing()->getPos())) {
+                            if (legalexists) {
+                                cout << "White is in check." << endl;
+                            } else {
+                                cout << "Checkmate! Black wins!" << endl;
+                                ++bpoints;
+                                break;
+                            }
+                        } else {
+                            if (legalexists == false) {
+                                cout << "Stalemate!" << endl;
+                                break;
+                            }
+                        }
+                    }
+                    if (turn == White) {
+                        bool legalexists = bplayer->LegalMoveExists();
+                        //bool isattack = b.isAttacked(bking->getPos());
+                        
+                        
+                       // if (isattack == false) throw tester();
+                        if (b.isAttacked(bplayer->getKing()->getPos())) {
+                            if (legalexists) {
+                                cout << "Black is in check." << endl;
+                            } else {
+                                cout << "Checkmate! White wins!" << endl;
+                                ++wpoints;
+                                break;
+                            }
+                        } else {
+                            if (legalexists == false) {
+                                cout << "Stalemate!" << endl;
+                                break;
+                            }
+                        }
+                    }
+                }
+                ///// REDISPLAY TEXTDISPLAY ////
+                cout<<b;
+                ///////// SWITCH TURNS /////////
+                if (turn == White) turn = Black;
+                if (turn == Black) turn = White;
+                ////////////////////////////////
+                
+            }//end of game_finished
+        }
+        cout << "Please begin new game." << endl;
+    }//end of game command
+}//end of one complete game, everything resets!
 

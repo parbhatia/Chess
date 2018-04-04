@@ -1,5 +1,6 @@
 #include "bishop.h"
 #include <iostream>
+#include "errors.h"
 #include <cmath>
 using namespace std;
 
