@@ -6,7 +6,7 @@
 #include "piece.h"
 #include "player.h"
 #include "humanPlayer.h"
-//#include "computerPlayer.h"
+#include "computerPlayer.h"
 #include "board.h"
 #include "piecepositions.h"
 #include "knight.h"
@@ -42,8 +42,12 @@ int main() {
     while (true) {
         ///////// GAME SETUP: RESETS EVERY GAME /////////
         Board b;
+        //shared_ptr<Player> wplayer = nullptr;
+        //shared_ptr<Player> bplayer = nullptr;
         Player *wplayer = NULL;
         Player *bplayer = NULL;
+        //shared_ptr<King> wking(new King(White,{-1,-1}));
+        //shared_ptr<King> bking(new King(White,{-1,-1}));
         King *wking = new King(White,{-1,-1}); //WILL BE SMART PTR
         King *bking = new King(Black,{-1,-1}); //WILL BE SMART PTR
         bool already_setup = false;
@@ -174,13 +178,13 @@ int main() {
             cin >> wh >> bl;
             //White player
             if (wh == "human") { wplayer = new HumanPlayer(White, &b, nullptr); }
-            if (wh == "computer1") {};
+            if (wh == "computer1") { wplayer = new ComputerPlayer(White, &b, nullptr, "1"); };
             if (wh == "computer2") {};
             if (wh == "computer3") {};
             if (wh == "computer4") {};
             //Black player
             if (bl == "human") { bplayer = new HumanPlayer(Black, &b, nullptr); }
-            if (bl == "computer1") {};
+            if (bl == "computer1") { bplayer = new ComputerPlayer(Black, &b, nullptr, "1"); };
             if (bl == "computer2") {};
             if (bl == "computer3") {};
             if (bl == "computer4") {};
@@ -257,11 +261,92 @@ int main() {
                     if (s == "move") { // computer move
                         if (turn == Black) {
                             try {
-                                //bplayer->move();
+                                bplayer->move();
                             }
-                            catch(...) {}
+                            catch(king_attacked &o) {
+                                cout << "King in check. Try again." << endl;
+                                continue;
+                            }
+                            catch(invalid_move &o) {
+                                cout << "Invalid move. Try Again." << endl;
+                                continue;
+                            }
+                            catch(outofrange &o) {
+                                cout << "Out of Range. Try Again." << endl;
+                                continue;
+                            }
+                            catch(samepos &o) {
+                                cout << "Same position. Try Again." << endl;
+                                continue;
+                            }
+                            catch(emptycell &o) {
+                                cout << "Empty cell. Try Again." << endl;
+                                continue;
+                            }
+                            catch(notplayerpiece &o) {
+                                cout << "Not Player Piece. Try Again." << endl;
+                                continue;
+                            }
+                            catch(ownpiece &o) {
+                                cout << "Own Piece. Try Again." << endl;
+                                continue;
+                            }
+                            catch(illegalmove &o) {
+                                cout << "Illegal Move. Try Again." << endl;
+                                continue;
+                            }
+                            catch(castling_fail &o) {
+                                cout << "Castling invalid. Try Again." << endl;
+                                continue;
+                            }
+                            catch(tester &o) {
+                                cout << "Test pickle rick. Try Again." << endl;
+                                continue;
+                            }
                         } else { // turn is White
-                            
+                            try {
+                                wplayer->move();
+                            }
+                            catch(king_attacked &o) {
+                                cout << "King in check. Try again." << endl;
+                                continue;
+                            }
+                            catch(invalid_move &o) {
+                                cout << "Invalid move. Try Again." << endl;
+                                continue;
+                            }
+                            catch(outofrange &o) {
+                                cout << "Out of Range. Try Again." << endl;
+                                continue;
+                            }
+                            catch(samepos &o) {
+                                cout << "Same position. Try Again." << endl;
+                                continue;
+                            }
+                            catch(emptycell &o) {
+                                cout << "Empty cell. Try Again." << endl;
+                                continue;
+                            }
+                            catch(notplayerpiece &o) {
+                                cout << "Not Player Piece. Try Again." << endl;
+                                continue;
+                            }
+                            catch(ownpiece &o) {
+                                cout << "Own Piece. Try Again." << endl;
+                                continue;
+                            }
+                            catch(illegalmove &o) {
+                                cout << "Illegal Move. Try Again." << endl;
+                                continue;
+                            }
+                            catch(castling_fail &o) {
+                                cout << "Castling invalid. Try Again." << endl;
+                                continue;
+                            }
+                            catch(tester &o) {
+                                cout << "Test pickle rick. Try Again." << endl;
+                                continue;
+                            }
                         }
                     }
                     else { // human move

@@ -15,6 +15,8 @@
 #include <sstream>
 using namespace std;
 
+//test
+
 vector<Move*> Board::getMoves() {
     return moves;
 }
@@ -308,8 +310,12 @@ void Board::undo() {
             pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->setPassant(false);
             pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->setMoved(false);
             pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->updatePos(moves.back()->oldPos);
-            pieces[moves.back()->newPos.row][moves.back()->newPos.col + 1]->setPassant(false);
-            pieces[moves.back()->newPos.row][moves.back()->newPos.col - 1]->setPassant(false);
+            if(pieces[moves.back()->newPos.row][moves.back()->newPos.col + 1] != nullptr) {
+                pieces[moves.back()->newPos.row][moves.back()->newPos.col + 1]->setPassant(false);
+            }
+            if(pieces[moves.back()->newPos.row][moves.back()->newPos.col - 1] != nullptr) {
+                pieces[moves.back()->newPos.row][moves.back()->newPos.col - 1]->setPassant(false);
+            }
             moves.pop_back();
             return;
         }
@@ -391,5 +397,6 @@ bool Board::isAttacked(Pos cellPos) {
     }
     return false; //has checked all enemy pieces and none of them attacks player's king
 }
+
 
 
