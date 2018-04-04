@@ -9,6 +9,7 @@ class Piece {
 	const Color color;
 	Pos pos;
 	bool hasMoved;
+    virtual void print(std::ostream& out) const = 0;
 	public:
 	void setMoved(bool val);
 	bool getMoved();
@@ -22,6 +23,8 @@ class Piece {
         virtual std::vector<Pos> getPossibleMoves(std::vector<std::vector<Piece*>> pieces) = 0;
 	Piece(Color c, Pos pos, bool hasMoved = false);
 	//No need a destructor since there is no heap allocated field and default dest is enough
+    friend std::ostream& operator<<(std::ostream& out, const Piece &p);
 };
+
 
 #endif

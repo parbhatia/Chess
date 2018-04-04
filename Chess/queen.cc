@@ -169,8 +169,7 @@ vector<Pos> Queen::getPossibleMoves(vector<vector<Piece*>> pieces) { //We need t
 Queen::Queen(Color c, Pos pos, bool hasMoved): Piece{c, pos, hasMoved} {}
 
 
-ostream& operator<<(ostream& out, const Queen& p) {
-    if (p.getColor() == White) out << 'Q';
+void Queen::print(std::ostream& out) const {
+    if (getColor() == White) out << 'Q';
     else out << 'q';
-    return out;
 }

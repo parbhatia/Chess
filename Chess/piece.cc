@@ -1,4 +1,5 @@
 #include "piece.h"
+#include <iostream>
 using namespace std;
 
 
@@ -21,6 +22,11 @@ void Piece::updatePos(Pos newPos) {
 
 Pos Piece::getPos() {
 	return pos;
+}
+
+std::ostream& operator<<(std::ostream& out, const Piece &p) {
+    p.print(out);
+    return out;
 }
 
 bool Piece::isPawn() {

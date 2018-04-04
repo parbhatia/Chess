@@ -127,8 +127,8 @@ vector<Pos> King::getPossibleMoves(vector <vector<Piece*>> pieces) {
 
 King::King(Color c, Pos pos, bool hasMoved) : Piece{c,pos} {}
 
-ostream& operator<<(ostream& out, const King& p) {
-    if (p.getColor() == White) out << 'K';
+void King::print(std::ostream& out) const {
+    if (getColor() == White) out << 'K';
     else out << 'k';
-    return out;
 }
+

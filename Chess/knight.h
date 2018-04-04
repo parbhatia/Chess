@@ -10,8 +10,7 @@ public:
     bool IsLegal(Pos newPos, std::vector <std::vector<Piece*>> pieces) override;
     std::vector<Pos> getPossibleMoves(std::vector <std::vector<Piece*>> pieces) override;
 	Knight(Color c, Pos pos, bool hasMoved = false);
+    void print(std::ostream& out) const override;
 };
-
-std::ostream& operator<<(std::ostream& out, const Knight& p);
 
 #endif

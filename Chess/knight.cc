@@ -81,9 +81,8 @@ vector<Pos> Knight::getPossibleMoves(vector <vector<Piece*>> pieces) {
 
 Knight::Knight(Color c, Pos pos, bool hasMoved): Piece(c ,pos, hasMoved) {}
 
-ostream& operator<<(ostream& out, const Knight& p) {
-    if (p.getColor() == White) out << 'N';
-    else out << 'N';
-    return out;
+void Knight::print(std::ostream& out) const {
+    if (getColor() == White) out << 'N';
+    else out << 'n';
 }
 
