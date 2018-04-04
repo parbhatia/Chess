@@ -11,8 +11,8 @@
 #include "rook.h"
 #include "bishop.h"
 #include "errors.h"
-#include <sstream>
 #include <cmath>
+#include <sstream>
 using namespace std;
 
 vector<Move*> Board::getMoves() {

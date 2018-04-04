@@ -254,98 +254,111 @@ int main() {
                     char promotion = ' '; //need to assign promotion to ' '
                     stringstream ss(s);
                     ss >> oldcol >> oldrow >> newcol >> newrow >> promotion;
-                    Pos old_pos = {8-oldrow, colmap.at(oldcol)};
-                    Pos new_pos = {8-newrow, colmap.at(newcol)};
-                    //find out who's turn it is
-                    if (turn == Black) {
-                        try {
-                            bplayer->move(old_pos, new_pos, promotion);
-                        }
-                        catch(king_attacked &o) {
-                            cout << "King in check. Try again." << endl;
-                            continue;
-                        }
-                        catch(invalid_move &o) {
-                            cout << "Invalid move. Try Again." << endl;
-                            continue;
-                        }
-                        catch(outofrange &o) {
-                            cout << "Out of Range. Try Again." << endl;
-                            continue;
-                        }
-                        catch(samepos &o) {
-                            cout << "Same position. Try Again." << endl;
-                            continue;
-                        }
-                        catch(emptycell &o) {
-                            cout << "Empty cell. Try Again." << endl;
-                            continue;
-                        }
-                        catch(notplayerpiece &o) {
-                            cout << "Not Player Piece. Try Again." << endl;
-                            continue;
-                        }
-                        catch(ownpiece &o) {
-                            cout << "Own Piece. Try Again." << endl;
-                            continue;
-                        }
-                        catch(illegalmove &o) {
-                            cout << "Illegal Move. Try Again." << endl;
-                            continue;
-                        }
-                        catch(castling_fail &o) {
-                            cout << "Castling invalid. Try Again." << endl;
-                            continue;
-                        }
-                        catch(tester &o) {
-                            cout << "Test pickle rick. Try Again." << endl;
-                            continue;
-                        }
-                    } else { //turn is White
-                        try {
-                            wplayer->move(old_pos, new_pos, promotion);
-                        }
-                        catch(king_attacked &o) {
-                            cout << "King in check. Try again." << endl;
-                            continue;
-                        }
-                        catch(invalid_move &o) {
-                            cout << "Invalid move. Try Again." << endl;
-                            continue;
-                        }
-                        catch(outofrange &o) {
-                            cout << "Out of Range. Try Again." << endl;
-                            continue;
-                        }
-                        catch(samepos &o) {
-                            cout << "Same position. Try Again." << endl;
-                            continue;
-                        }
-                        catch(emptycell &o) {
-                            cout << "Empty cell. Try Again." << endl;
-                            continue;
-                        }
-                        catch(notplayerpiece &o) {
-                            cout << "Not Player Piece. Try Again." << endl;
-                            continue;
-                        }
-                        catch(ownpiece &o) {
-                            cout << "Own Piece. Try Again." << endl;
-                            continue;
-                        }
-                        catch(illegalmove &o) {
-                            cout << "Illegal Move. Try Again." << endl;
-                            continue;
-                        }
-                        catch(castling_fail &o) {
-                            cout << "Castling invalid. Try Again." << endl;
-                            continue;
-                        }
-                        catch(tester &o) {
-                            cout << "Test pickle rick. Try Again." << endl;
-                            continue;
+                    if (s == "move") { // computer move
+                        if (turn == Black) {
+                            try {
+                                //bplayer->move();
+                            }
+                            catch(...) {}
+                        } else { // turn is White
+                            
                         }
                     }
+                    else { // human move
+                        Pos old_pos = {8-oldrow, colmap.at(oldcol)};
+                        Pos new_pos = {8-newrow, colmap.at(newcol)};
+                        //find out who's turn it is
+                        if (turn == Black) {
+                            try {
+                                bplayer->move(old_pos, new_pos, promotion);
+                            }
+                            catch(king_attacked &o) {
+                                cout << "King in check. Try again." << endl;
+                                continue;
+                            }
+                            catch(invalid_move &o) {
+                                cout << "Invalid move. Try Again." << endl;
+                                continue;
+                            }
+                            catch(outofrange &o) {
+                                cout << "Out of Range. Try Again." << endl;
+                                continue;
+                            }
+                            catch(samepos &o) {
+                                cout << "Same position. Try Again." << endl;
+                                continue;
+                            }
+                            catch(emptycell &o) {
+                                cout << "Empty cell. Try Again." << endl;
+                                continue;
+                            }
+                            catch(notplayerpiece &o) {
+                                cout << "Not Player Piece. Try Again." << endl;
+                                continue;
+                            }
+                            catch(ownpiece &o) {
+                                cout << "Own Piece. Try Again." << endl;
+                                continue;
+                            }
+                            catch(illegalmove &o) {
+                                cout << "Illegal Move. Try Again." << endl;
+                                continue;
+                            }
+                            catch(castling_fail &o) {
+                                cout << "Castling invalid. Try Again." << endl;
+                                continue;
+                            }
+                            catch(tester &o) {
+                                cout << "Test pickle rick. Try Again." << endl;
+                                continue;
+                            }
+                        } else { //turn is White
+                            try {
+                                wplayer->move(old_pos, new_pos, promotion);
+                            }
+                            catch(king_attacked &o) {
+                                cout << "King in check. Try again." << endl;
+                                continue;
+                            }
+                            catch(invalid_move &o) {
+                                cout << "Invalid move. Try Again." << endl;
+                                continue;
+                            }
+                            catch(outofrange &o) {
+                                cout << "Out of Range. Try Again." << endl;
+                                continue;
+                            }
+                            catch(samepos &o) {
+                                cout << "Same position. Try Again." << endl;
+                                continue;
+                            }
+                            catch(emptycell &o) {
+                                cout << "Empty cell. Try Again." << endl;
+                                continue;
+                            }
+                            catch(notplayerpiece &o) {
+                                cout << "Not Player Piece. Try Again." << endl;
+                                continue;
+                            }
+                            catch(ownpiece &o) {
+                                cout << "Own Piece. Try Again." << endl;
+                                continue;
+                            }
+                            catch(illegalmove &o) {
+                                cout << "Illegal Move. Try Again." << endl;
+                                continue;
+                            }
+                            catch(castling_fail &o) {
+                                cout << "Castling invalid. Try Again." << endl;
+                                continue;
+                            }
+                            catch(tester &o) {
+                                cout << "Test pickle rick. Try Again." << endl;
+                                continue;
+                            }
+                        }
+                    }
+                    
                     //check stalemate for only 2 kings in board
                     if (b.getCount() == 2) {
                         cout << "Stalemate!" << endl;
@@ -396,6 +409,9 @@ int main() {
                         }
                     }
                 }
+                else { //command unrecognized
+                    cout << "Command unreognized. Try again." << endl;
+                }
                 ///// REDISPLAY TEXTDISPLAY ////
                 cout<<b;
                 ///////// SWITCH TURNS /////////
@@ -405,7 +421,7 @@ int main() {
                 
             }//end of game_finished
         }
-        cout << "Please begin new game." << endl;
+        cout << "Begin new game." << endl;
     }//end of game command
 }//end of one complete game, everything resets!
 
