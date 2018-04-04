@@ -12,13 +12,14 @@ class Board {
     std::vector <Move*> moves;
     public:
     void insert (Pos pos, char letter);
+    void insert (Piece *p);
     void remove (Pos pos);
     void updateTD(Pos oldpos, Pos newpos, char promo);
     std::vector<std::vector<Piece*>> getPieces() const;
     std::vector <Move*>* getMoves();
     bool outOfRange(const Pos p) const;
     bool isAttacked(Pos cellPos);
-    void makeTheMove(Piece* moved, Piece* target, char prm = 'Q');
+    void makeTheMove(Pos mPos, Pos tPos, char prm = 'Q');
     void undo();
     Board();
     ~Board();

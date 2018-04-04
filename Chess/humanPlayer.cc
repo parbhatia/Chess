@@ -2,6 +2,7 @@
 #include "pos.h"
 #include <iostream>
 #include "player.h"
+#include "errors.h"
 using namespace std;
 
 void HumanPlayer::move(Pos oldPos, Pos newPos, char prm){
@@ -9,37 +10,39 @@ void HumanPlayer::move(Pos oldPos, Pos newPos, char prm){
 	Piece* target = B->getPieces()[newPos.row][newPos.col];//piece at newPos
 
 	if (B->outOfRange(oldPos) || B->outOfRange(newPos)) { //out of the board
-		cout << "INVALID" << endl;
+		throw(outofrange());
 	}
 	else if (oldPos.col == newPos.col && oldPos.row == newPos.row) {//oldPos == newPos
-		cout << "INVALID" << endl;
+		throw(samepos());
 	}
 	else if (curPiece == NULL) {//empty cell
-		std::cout << "INVALID" << std::endl;
+		throw(emptycell());
 	}
 	else if (curPiece->getColor() != color) { //not player's piece
-        cout << "INVALID" << endl;
+        throw(notplayerpiece());
 	}
 	else if (target != NULL && target->getColor() == color) {//player capturing its own piece
-        cout << "INVALID" << endl;
+        throw(ownpiece());
 	}
 	else {
 		if(curPiece->IsLegal(newPos, B->getPieces())) {
 			if(prm == ' ') {
-				B->makeTheMove(curPiece, target);
+				B->makeTheMove(oldPos, newPos);
 			} else {
-				B->makeTheMove(curPiece, target, prm);
+				B->makeTheMove(oldPos, newPos, prm);
 			}
 			if (B->isAttacked(king->getPos()) == true){
 				B->undo();
-				std::cout << "INVALID" << std::endl;
+                //delete this
+                throw(tester());
+				//throw(invalid_move());
 			}
 			else {
 				curPiece->setMoved(true);
 			}
 		}
 		else { //last move attempt was illegal
-			std::cout << "INVALID" << std::endl;
+			throw(illegalmove());
 		}
 	}
 }

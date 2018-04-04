@@ -46,8 +46,8 @@ int main() {
         Board b;
         Player *wplayer = NULL;
         Player *bplayer = NULL;
-        Pos wking_pos = {0,0}; //will be updated by setup
-        Pos bking_pos = {0,0}; //will be updated by setup
+        King *wking = new King(White,{-1,-1}); //WILL BE SMART PTR
+        King *bking = new King(Black,{-1,-1}); //WILL BE SMART PTR
         bool game_finished = false;
         bool already_setup = false;
         bool setup_conditions_met = false;
@@ -60,106 +60,108 @@ int main() {
             cout << "Black: " << bpoints << endl;
             return 0;
         }
-        /*if (cmd == "setup") {
-         already_setup = true;
-         bool w_kingset = false;
-         bool b_kingset = false;
-         bool king_in_check = false;
-         while(true) {
-         cin >> cmd;
-         if (cmd == "+") {
-         char letter; // holds letter
-         char col; //col pos
-         int row; //row pos
-         cin >> letter >> col >> row;
-         Pos pos = {8-row,colmap.at(col)};
-         if (letter == 'K') {
-         if (w_kingset) {
-         cout << "King already assigned." << endl;
-         }
-         else {
-         b.insert(pos,letter);
-         w_kingset = true;
-         //set white player king position
-         wking_pos.row = pos.row;
-         wking_pos.col = pos.col;
-         //REDISPLAY BOARD
-         cout << b;
-         }
-         }
-         else if (letter == 'k') {
-         if (b_kingset) {
-         cout << "King already assigned." << endl;
-         }
-         else {
-         b.insert(pos,letter);
-         b_kingset = true;
-         //set black player king position
-         bking_pos.row = pos.row;
-         bking_pos.row = pos.col;
-         //REDISPLAY BOARD
-         cout << b;
-         }
-         }
-         else if (letter == 'P' || letter == 'p') {
-         if (pos.row != 0 && pos.row != 7) { //checks if pawn is not in end rows
-         b.insert(pos,letter);
-         //REDISPLAY BOARD
-         cout << b;
-         }
-         else {
-         cout << "Invalid pawn placement." << endl;
-         }
-         }
-         else {
-         b.insert(pos,letter);
-         //REDISPLAY BOARD
-         cout << b;
-         }
-         }
-         if (cmd == "=") {
-         string c; //stores color
-         cin >> c;
-         if (c == "black") turn = Black;
-         }
-         if (cmd == "-") {
-         char col;
-         int row;
-         cin >> col >> row;
-         Pos pos = {8-row,colmap.at(col)};
-         if (b.getPieces()[pos.row][pos.col] != NULL) { //take action only if there is a piece at pos
-         b.remove(pos);
-         if (true) {//turn king set flags off!
-         }
-         //REDISPLAY BOARD
-         cout << b;
-         }
-         }
-         if (cmd == "done") {
-         //Check setup conditions
-         if (wplayer->getKing() == NULL){
-         cout << "White king not set." << endl;
-         w_kingset = false;
-         }
-         if (bplayer->getKing() == NULL) {
-         cout << "Black king not set." << endl;
-         b_kingset = false;
-         }
-         if (wplayer->isChecked() || bplayer->isChecked()) {
-         king_in_check = true;
-         }
-         if (!king_in_check && w_kingset && b_kingset) setup_conditions_met = true;
-         if (setup_conditions_met) {
-         break;
-         }
-         else {
-         cout << "Setup conditions not met." << endl;
-         }
-         }
-         }
-         cout << "Setup complete." << endl;
-         cout << "Please begin new game." << endl;
-         }//end of setup*/
+        if (cmd == "setup") {
+            already_setup = true;
+            bool w_kingset = false;
+            bool b_kingset = false;
+            bool king_in_check = false;
+            while(true) {
+                cin >> cmd;
+                if (cmd == "+") {
+                    char letter; // holds letter
+                    char col; //col pos
+                    int row; //row pos
+                    cin >> letter >> col >> row;
+                    Pos pos = {8-row,colmap.at(col)};
+                    if (letter == 'K') {
+                        if (w_kingset) {
+                            cout << "Black king already assigned." << endl;
+                        }
+                        else {
+                            wking->updatePos(pos);
+                            b.insert(wking);
+                            w_kingset = true;
+                            //REDISPLAY BOARD
+                            cout << b;
+                        }
+                    }
+                    else if (letter == 'k') {
+                        if (b_kingset) {
+                            cout << "White king already assigned." << endl;
+                        }
+                        else {
+                            bking->updatePos(pos);
+                            b.insert(bking);
+                            b_kingset = true;
+                            //REDISPLAY BOARD
+                            cout << b;
+                        }
+                    }
+                    else if (letter == 'P' || letter == 'p') {
+                        if (pos.row != 0 && pos.row != 7) { //checks if pawn is not in end rows
+                            b.insert(pos,letter);
+                            //REDISPLAY BOARD
+                            cout << b;
+                        }
+                        else {
+                            cout << "Invalid pawn placement." << endl;
+                        }
+                    }
+                    else {
+                        b.insert(pos,letter);
+                        //REDISPLAY BOARD
+                        cout << b;
+                    }
+                }
+                if (cmd == "=") {
+                    string c; //stores color
+                    cin >> c;
+                    if (c == "black") turn = Black;
+                }
+                if (cmd == "-") {
+                    char col;
+                    int row;
+                    cin >> col >> row;
+                    Pos pos = {8-row,colmap.at(col)};
+                    if (b.getPieces()[pos.row][pos.col] != nullptr) { //take action only if there is a piece at pos
+                        if (wking->getPos().row == pos.row && wking->getPos().col == pos.col) {
+                            wking->updatePos({-1,-1});
+                            w_kingset = false;
+                        }
+                        if (bking->getPos().row == pos.row && bking->getPos().col == pos.col) {
+                            bking->updatePos({-1,-1});
+                            b_kingset = false;
+                        }
+                        b.remove(pos);
+                        //REDISPLAY BOARD
+                        cout << b;
+                    }
+                }
+                if (cmd == "done") {
+                    //Check setup conditions
+                    if (w_kingset == false){
+                        cout << "White king not set." << endl;
+                    }
+                    if (b_kingset == false) {
+                        cout << "Black king not set." << endl;
+                    }
+                    ///////////ADD
+                    /*if (wplayer->isChecked() || bplayer->isChecked()) {
+                        king_in_check = true;
+                    }*/
+                    //////////////
+                    if (!king_in_check && w_kingset && b_kingset) setup_conditions_met = true;
+                    if (setup_conditions_met) {
+                        break;
+                    }
+                    else {
+                        cout << "Setup conditions not met." << endl;
+                    }
+                }
+            }
+            cout << "Setup complete." << endl;
+            cout << "Please begin new game." << endl;
+        }//end of setup
         if (cmd == "game") {
             cout << "DEBUG: entered game" << endl;
             //CREATE PLAYERS
@@ -181,7 +183,7 @@ int main() {
             cout << "DEBUG: players are: " << wh << " " << bl << endl;
             if (!already_setup) {
                 //inserting white player pieces
-                b.insert({7,0},'R');
+                b.insert(R1,'R');
                 b.insert(N1,'N');
                 b.insert(B1,'B');
                 b.insert(Q,'Q');
@@ -214,18 +216,16 @@ int main() {
                 b.insert(p6,'p');
                 b.insert(p7,'p');
                 b.insert(p8,'p');
-                //Players set their king pointer
-                //King *wk = static_cast<Piece*> (b.getPieces()[7][4]);
-                //King *bk = static_cast<Piece*> (b.getPieces()[0][4]);
-                
+                //Players set their king pointers
                 wplayer->setKing(b.getPieces()[7][4]);
                 bplayer->setKing(b.getPieces()[0][4]);
             }
             else { //already setup is true
                 //Players set their kings
-                //wplayer->setKing(b.getPieces()[][]);
-                //bplayer->setKing(b.getPieces()[][]);
+                wplayer->setKing(wking);
+                bplayer->setKing(bking);
             }
+            cout << b;
             while (game_finished == false) {
                 cin >> cmd;
                 cout << "DEBUG: entered inner game loop" << endl;
@@ -253,30 +253,88 @@ int main() {
                     char promotion = ' '; //need to assign promotion to ' '
                     stringstream ss(s);
                     ss >> oldcol >> oldrow >> newcol >> newrow >> promotion;
-                    Pos old_pos = {oldrow,oldcol};
-                    Pos new_pos = {newrow, newcol};
+                    Pos old_pos = {8-oldrow, colmap.at(oldcol)};
+                    Pos new_pos = {8-newrow, colmap.at(newcol)};
+                    cout << "old pos is " << old_pos.row << old_pos.col << endl;
+                    cout << "new pos is " << new_pos.row << new_pos.col << endl;
                     //find out who's turn it is
                     if (turn == White) {
                         try{
                             wplayer->move(old_pos, new_pos, promotion);
+                            cout << "DEBUG: white move finished" << endl;
                         }
                         catch(invalid_move &o) {
                             cout << "Invalid move" << endl;
+                            break;
+                        }
+                        catch(outofrange &o) {
+                            cout << "Out of Range" << endl;
+                            break;
+                        }
+                        catch(samepos &o) {
+                            cout << "Same position" << endl;
+                            break;
+                        }
+                        catch(emptycell &o) {
+                            cout << "Empty cell" << endl;
+                            break;
+                        }
+                        catch(notplayerpiece &o) {
+                            cout << "Not Player Piece" << endl;
+                            break;
+                        }
+                        catch(ownpiece &o) {
+                            cout << "Own Piece" << endl;
+                            break;
+                        }
+                        catch(illegalmove &o) {
+                            cout << "Illegal Move" << endl;
+                            break;
+                        }
+                        catch(tester &o) {
+                            cout << "Test pickle rick" << endl;
                             break;
                         }
                     }
                     if (turn == Black) {
                         try{
                             bplayer->move(old_pos, new_pos, promotion);
+                            cout << "DEBUG: black move finished" << endl;
                         }
                         catch(invalid_move &o) {
                             cout << "Invalid move" << endl;
                             break;
                         }
+                        catch(outofrange &o) {
+                            cout << "Out of Range" << endl;
+                            break;
+                        }
+                        catch(samepos &o) {
+                            cout << "Same position" << endl;
+                            break;
+                        }
+                        catch(emptycell &o) {
+                            cout << "Empty cell" << endl;
+                            break;
+                        }
+                        catch(notplayerpiece &o) {
+                            cout << "Not Player Piece" << endl;
+                            break;
+                        }
+                        catch(ownpiece &o) {
+                            cout << "Own Piece" << endl;
+                            break;
+                        }
+                        catch(illegalmove &o) {
+                            cout << "Illegal Move" << endl;
+                            break;
+                        }
+                        catch(tester &o) {
+                            cout << "Test pickle rick" << endl;
+                            break;
+                        }
                     }
                     
-                    ////// UPDATE TEXTDISPLAY //////
-                    //b.updateTD(old_pos,new_pos,promotion);
                     ///// REDISPLAY TEXTDISPLAY ////
                     cout<<b;
                     ///////// SWITCH TURNS /////////

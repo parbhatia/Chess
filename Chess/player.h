@@ -7,8 +7,8 @@
 
 class Player {
 	protected:
-    Board* B;
     const Color color;
+    Board* B;
 	King* king;
 	public:
 	//checks if player has any legal moves:

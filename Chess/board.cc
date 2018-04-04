@@ -10,6 +10,7 @@
 #include "knight.h"
 #include "rook.h"
 #include "bishop.h"
+#include "errors.h"
 #include <sstream>
 using namespace std;
 
@@ -30,6 +31,11 @@ void Board::insert (Pos pos, char letter) {
     else if (letter == 'k') { pieces[r][c] = new King(Black,pos); }
     else { pieces[r][c] = new Pawn(Black,pos); } //letter is 'p'
 }
+
+void Board::insert (Piece *p) {
+    pieces[p->getPos().row][p->getPos().col] = p;
+}
+
 void Board::remove (Pos pos) {
     pieces[pos.row][pos.col] = NULL;
 }
@@ -87,69 +93,45 @@ ostream& operator<<(ostream &os, const Board &b) {
         }
     }
     //DEBUG//////////////
-    stringstream ss;
-    for(int i=0; i<10; ++i) {
-        for(int j=0; j<10; ++j) {
-            if (!b.outOfRange(Pos{i,j})) { //if in range
-                ss << *(b.getPieces()[0][0]);
+    /*
+     stringstream ss;
+     for(int i=0; i<10; ++i) {
+     for(int j=0; j<10; ++j) {
+     if (!b.outOfRange(Pos{i,j})) { //if in range
+     ss << *(b.getPieces()[0][0]);
+     char c;
+     ss >> c;
+     theDisplay[i][j] = c;
+     }
+     }
+     }*/
+    for (int i=0; i<8; ++i) {
+        for (int j=2; j<10; ++j) {
+            if (b.getPieces()[i][j-2] != nullptr) {
+                stringstream ss;
                 char c;
+                ss << *(b.getPieces()[i][j-2]);
                 ss >> c;
                 theDisplay[i][j] = c;
             }
         }
     }
+    
     for(int i=0; i<10; ++i) {
         for(int j=0; j<10; ++j) {
             os << theDisplay[i][j];
         }
         os << endl;
     }
-    /*
-     
-     for(int i=0; i<10; ++i) {
-     for(int j=0; j<10; ++j) {
-     if (b.outOfRange(Pos{i,j})) {//if out of board range
-     os << theDisplay[i][j];
-     } else { //in range
-     if (b.getPieces()[i][j] != nullptr) {
-     os << theDisplay[i][j];
-     }
-     else {
-     os << *(b.getPieces()[0][0]);
-     }
-     }
-     }
-     os << endl;
-     }
-     //////////////////////
-     
-     
-     
-     for(int i=0; i<10; ++i) {
-     for(int j=0; j<10; ++j) {
-     if((i>=2 && i<10) && (j>=0 && j<8)) {
-     if (b.getPieces()[i][j] != NULL) { //if piece position is empty
-     os << *(b.getPieces()[0][0]); //overload piece operator
-     } else {
-     os << theDisplay[i][j];
-     }
-     } else { //out of 8x8 bound, we will print alphabet and row indeces
-     os << theDisplay[i][j];
-     }
-     os << theDisplay[i][j];
-     }
-     os << endl;
-     }*/
+    /////////////////////////
     return os;
 }
 
-void Board::makeTheMove(Piece* moved, Piece* target, char prm){
-    const Pos mPos = moved->getPos(); //moving from mPos
-    const Pos tPos = target->getPos(); //moving to tPos
+void Board::makeTheMove(Pos mPos, Pos tPos, char prm){
     bool RegularMove = true;
     
     //Promotion Condition
-    if((moved->isPawn() == true) &&
+    if((pieces[mPos.row][mPos.col]->isPawn() == true) &&
        ((tPos.row == 7) || (tPos.row == 0))) {
         Color c = Black;
         if(tPos.row == 7) {
@@ -165,8 +147,8 @@ void Board::makeTheMove(Piece* moved, Piece* target, char prm){
         } else {
             promotionPiece = new Queen(c, {tPos.row, tPos.col});
         }
-        target = promotionPiece;
-        moved = nullptr;
+        pieces[tPos.row][tPos.col] = promotionPiece;
+        pieces[mPos.row][mPos.col] = nullptr;
         Move *m = new Move{mPos, tPos, nullptr, "Promotion"};
         moves.emplace_back(m);
     }
@@ -176,14 +158,14 @@ void Board::makeTheMove(Piece* moved, Piece* target, char prm){
     //possible enPassant capture:
     if (((mPos.row == 3 && tPos.row == 2) || (mPos.row == 4 && tPos.row == 5)) &&
         (abs(mPos.col - tPos.col) == 1) &&
-        (target == nullptr) &&
-        (moved->isPawn() == true)) {
+        (pieces[tPos.row][tPos.col] == nullptr) &&
+        (pieces[mPos.row][mPos.col]->isPawn() == true)) {
         RegularMove = false;
         Move *m = new Move{mPos, tPos, pieces[mPos.row][tPos.col], "enPassantCapture"};
         moves.emplace_back(m);
-        target = moved; //capturing pawn moves to target
-        target->updatePos(tPos); //Update Position of the piece
-        moved = nullptr; //old position of the capturing pawn
+        pieces[tPos.row][tPos.col] = pieces[mPos.row][mPos.col]; //capturing pawn moves to target
+        pieces[tPos.row][tPos.col]->updatePos(tPos); //Update Position of the piece
+        pieces[mPos.row][mPos.col] = nullptr; //old position of the capturing pawn
         pieces[mPos.row][tPos.col] = nullptr; //position of the captured pawn
     }
     
@@ -211,44 +193,44 @@ void Board::makeTheMove(Piece* moved, Piece* target, char prm){
     }
     
     
-    if ((moved->isPawn() == true) && //possible enPassant setup (2 forward move)
+    if ((pieces[mPos.row][mPos.col]->isPawn() == true) && //possible enPassant setup (2 forward move)
         ((mPos.row == 1 && tPos.row == 3) || (mPos.row == 6 && tPos.row == 4))) {
         RegularMove = false;
         Move *m = new Move{mPos, tPos, nullptr, "enPassantSetup"};
         moves.emplace_back(m);
-        moved->setPassant(true);
-        target = moved; //2 forward move
-        target->updatePos(tPos);
-        moved = nullptr;
+        pieces[mPos.row][mPos.col]->setPassant(true);
+        pieces[tPos.row][tPos.col] = pieces[mPos.row][mPos.col]; //2 forward move
+        pieces[tPos.row][tPos.col]->updatePos(tPos);
+        pieces[mPos.row][mPos.col] = nullptr;
         pieces[tPos.row][tPos.col - 1]->setPassant(true);
         pieces[tPos.row][tPos.col + 1]->setPassant(true);
     }
     
     
-    if ((moved->getMoved() == false) &&   //short-castling condition for both colors
+    if ((pieces[mPos.row][mPos.col]->getMoved() == false) &&   //short-castling condition for both colors
         ((mPos.row == 0) || (mPos.row == 7)) && (mPos.col == 4) &&
         (tPos.row == 6)) {
         RegularMove = false;
         Move *m = new Move{mPos, tPos, nullptr, "Castling"};
         moves.emplace_back(m);
-        target = moved;
-        target->updatePos(tPos);
-        moved = nullptr;
+        pieces[tPos.row][tPos.col] = pieces[mPos.row][mPos.col];
+        pieces[tPos.row][tPos.col]->updatePos(tPos);
+        pieces[mPos.row][mPos.col] = nullptr;
         pieces[mPos.row][5] = pieces[mPos.row][7]; //moves the castle to the new loc
         pieces[mPos.row][5]->updatePos({mPos.row, 5});
         pieces[mPos.row][7] = nullptr;
         pieces[mPos.row][5]->setMoved(true);
     }
     
-    if ((moved->getMoved() == false) &&   //long-castling condition for both colors
+    if ((pieces[mPos.row][mPos.col]->getMoved() == false) &&   //long-castling condition for both colors
         ((mPos.row == 0) || (mPos.row == 7)) && (mPos.col == 4) &&
         (tPos.row == 2)) {
         RegularMove = false;
         Move *m = new Move{mPos, tPos, nullptr, "Castling"};
         moves.emplace_back(m);
-        target = moved;
-        target->updatePos(tPos);
-        moved = nullptr;
+        pieces[tPos.row][tPos.col] = pieces[mPos.row][mPos.col];
+        pieces[tPos.row][tPos.col]->updatePos(tPos);
+        pieces[mPos.row][mPos.col] = nullptr;
         pieces[mPos.row][3] = pieces[mPos.row][0]; //moves the castle to the new loc
         pieces[mPos.row][3]->updatePos({mPos.row, 3});
         pieces[mPos.row][0] = nullptr;
@@ -256,18 +238,19 @@ void Board::makeTheMove(Piece* moved, Piece* target, char prm){
     }
     
     if(RegularMove == true) {
+        throw(invalid_move());
         if(pieces[mPos.row][mPos.col]->getMoved() == false) {
-            Move* m = new Move{mPos, tPos, target, "FirstMove"};
+            Move* m = new Move{mPos, tPos, pieces[tPos.row][tPos.col], "FirstMove"};
             moves.emplace_back(m); //info about move is pushed to moved vec in board
-            target = moved; //target cell points to moved piece
-            target->updatePos(tPos);
-            moved = nullptr; //freeing old cell
+            pieces[tPos.row][tPos.col] = pieces[mPos.row][mPos.col]; //target cell points to moved piece
+            pieces[tPos.row][tPos.col]->updatePos(tPos);
+            pieces[mPos.row][mPos.col] = nullptr; //freeing old cell
         } else {
-            Move* m = new Move{mPos, tPos, target, "Regular"};
+            Move* m = new Move{mPos, tPos, pieces[tPos.row][tPos.col], "Regular"};
             moves.emplace_back(m); //info about move is pushed to moved vec in board
-            target = moved; //target cell points to moved piece
-            target->updatePos(tPos);
-            moved = nullptr; //freeing old cell
+            pieces[tPos.row][tPos.col] = pieces[mPos.row][mPos.col]; //target cell points to moved piece
+            pieces[tPos.row][tPos.col]->updatePos(tPos);
+            pieces[mPos.row][mPos.col] = nullptr; //freeing old cell
         }
     }
 }
@@ -355,9 +338,7 @@ void Board::undo() {
 }
 
 bool Board::outOfRange(const Pos p) const {
-    if (p.row > 7 || p.col > 7) return true;
-    else if (p.row < 0 || p.col < 0) return true;
-    
+    if ((p.row > 7 || p.col > 7) && (p.row < 0 || p.col < 0)) return true;
     return false;
 }
 
