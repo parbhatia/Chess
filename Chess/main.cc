@@ -258,7 +258,8 @@ int main() {
                     char promotion = ' '; //need to assign promotion to ' '
                     stringstream ss(s);
                     ss >> oldcol >> oldrow >> newcol >> newrow >> promotion;
-                    if (s == "move") { // computer move
+                    if (s == "") { // computer move
+                        cout << "computer move" << endl;
                         if (turn == Black) {
                             try {
                                 bplayer->move();
@@ -354,6 +355,7 @@ int main() {
                         Pos new_pos = {8-newrow, colmap.at(newcol)};
                         //find out who's turn it is
                         if (turn == Black) {
+                            cout << "human move" << endl;
                             try {
                                 bplayer->move(old_pos, new_pos, promotion);
                             }
@@ -486,10 +488,12 @@ int main() {
                     
                     if (b.getMoves().back()->specialMove == "enPassantSetup") {
                         b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col]->setPassant(true);
-                        if ((b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col - 1]) != nullptr) {
+                        if (!(b.outOfRange({b.getMoves().back()->newPos.row, b.getMoves().back()->newPos.col - 1})) &&
+                            (b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col - 1] != nullptr)) {
                             (b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col - 1])->setPassant(true);
                         }
-                        if ((b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col + 1]) != nullptr) {
+                        if (!(b.outOfRange({b.getMoves().back()->newPos.row, b.getMoves().back()->newPos.col - 1})) &&
+                            (b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col + 1] != nullptr)) {
                             (b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col + 1])->setPassant(true);
                         }
                     }

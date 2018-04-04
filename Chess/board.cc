@@ -15,8 +15,6 @@
 #include <sstream>
 using namespace std;
 
-//test
-
 vector<Move*> Board::getMoves() {
     return moves;
 }
@@ -224,6 +222,15 @@ void Board::makeTheMove(Pos mPos, Pos tPos, char prm){
         pieces[tPos.row][tPos.col] = pieces[mPos.row][mPos.col]; //2 forward
         pieces[tPos.row][tPos.col]->updatePos(tPos);
         pieces[mPos.row][mPos.col] = nullptr;
+        /*pieces[mPos.row][mPos.col]->setPassant(true);
+        if(!(outOfRange({mPos.row, mPos.col + 1})) &&
+           (pieces[mPos.row][mPos.col + 1] != nullptr)) {
+            pieces[mPos.row][mPos.col + 1]->setPassant(true);
+        }
+        if(!(outOfRange({mPos.row, mPos.col - 1})) &&
+           (pieces[mPos.row][mPos.col - 1] != nullptr)) {
+            pieces[mPos.row][mPos.col - 1]->setPassant(true);
+        }*/
     }
     
     
@@ -310,10 +317,11 @@ void Board::undo() {
             pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->setPassant(false);
             pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->setMoved(false);
             pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->updatePos(moves.back()->oldPos);
-            if(pieces[moves.back()->newPos.row][moves.back()->newPos.col + 1] != nullptr) {
+            if(!(outOfRange({moves.back()->newPos.row, moves.back()->newPos.col + 1})) && (pieces[moves.back()->newPos.row][moves.back()->newPos.col + 1] != nullptr)) {
                 pieces[moves.back()->newPos.row][moves.back()->newPos.col + 1]->setPassant(false);
             }
-            if(pieces[moves.back()->newPos.row][moves.back()->newPos.col - 1] != nullptr) {
+            cout << "MADE IT HERE" << endl;
+            if(!(outOfRange({moves.back()->newPos.row, moves.back()->newPos.col - 1})) && (pieces[moves.back()->newPos.row][moves.back()->newPos.col - 1] != nullptr)) {
                 pieces[moves.back()->newPos.row][moves.back()->newPos.col - 1]->setPassant(false);
             }
             moves.pop_back();
