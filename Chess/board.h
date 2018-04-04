@@ -10,13 +10,16 @@
 class Board {
     std::vector<std::vector <Piece*>> pieces; //all pieces on board
     std::vector <Move*> moves;
+    int count;
     public:
+    std::vector <Move*> getMoves();
+    void setCount(char c, int i=1);
+    int getCount() const;
     void insert (Pos pos, char letter);
     void insert (Piece *p);
     void remove (Pos pos);
     void updateTD(Pos oldpos, Pos newpos, char promo);
     std::vector<std::vector<Piece*>> getPieces() const;
-    std::vector <Move*>* getMoves();
     bool outOfRange(const Pos p) const;
     bool isAttacked(Pos cellPos);
     void makeTheMove(Pos mPos, Pos tPos, char prm = 'Q');

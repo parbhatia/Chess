@@ -21,7 +21,6 @@
 using namespace std;
 
 int main() {
-    cout << "DEBUG: entered main" << endl;
     string cmd;
     
     // SCOREBOARD //
@@ -41,14 +40,12 @@ int main() {
     colmap['h'] = Col::h;
     
     while (true) {
-        cout << "DEBUG: entered outer while loop" << endl;
         ///////// GAME SETUP: RESETS EVERY GAME /////////
         Board b;
         Player *wplayer = NULL;
         Player *bplayer = NULL;
         King *wking = new King(White,{-1,-1}); //WILL BE SMART PTR
         King *bking = new King(Black,{-1,-1}); //WILL BE SMART PTR
-        bool game_finished = false;
         bool already_setup = false;
         bool setup_conditions_met = false;
         Color turn = White; // white goes first by default
@@ -61,6 +58,7 @@ int main() {
             return 0;
         }
         if (cmd == "setup") {
+            cout << b;
             already_setup = true;
             bool w_kingset = false;
             bool b_kingset = false;
@@ -81,6 +79,7 @@ int main() {
                             wking->updatePos(pos);
                             b.insert(wking);
                             w_kingset = true;
+                            b.setCount('+',1);
                             //REDISPLAY BOARD
                             cout << b;
                         }
@@ -93,6 +92,7 @@ int main() {
                             bking->updatePos(pos);
                             b.insert(bking);
                             b_kingset = true;
+                            b.setCount('+',1);
                             //REDISPLAY BOARD
                             cout << b;
                         }
@@ -100,6 +100,7 @@ int main() {
                     else if (letter == 'P' || letter == 'p') {
                         if (pos.row != 0 && pos.row != 7) { //checks if pawn is not in end rows
                             b.insert(pos,letter);
+                            b.setCount('+',1);
                             //REDISPLAY BOARD
                             cout << b;
                         }
@@ -109,6 +110,7 @@ int main() {
                     }
                     else {
                         b.insert(pos,letter);
+                        b.setCount('+',1);
                         //REDISPLAY BOARD
                         cout << b;
                     }
@@ -133,6 +135,7 @@ int main() {
                             b_kingset = false;
                         }
                         b.remove(pos);
+                        b.setCount('-',1);
                         //REDISPLAY BOARD
                         cout << b;
                     }
@@ -145,11 +148,12 @@ int main() {
                     if (b_kingset == false) {
                         cout << "Black king not set." << endl;
                     }
-                    ///////////ADD
-                    /*if (wplayer->isChecked() || bplayer->isChecked()) {
-                     king_in_check = true;
-                     }*/
-                    //////////////
+                    //check if kings are check
+                    if (b.isAttacked(wking->getPos()) || b.isAttacked(bking->getPos())) {
+                        king_in_check = true;
+                    } else {
+                        king_in_check = false;
+                    }
                     if (!king_in_check && w_kingset && b_kingset) setup_conditions_met = true;
                     if (setup_conditions_met) {
                         break;
@@ -161,9 +165,9 @@ int main() {
             }
             cout << "Setup complete." << endl;
             cout << "Please begin new game." << endl;
+            cin >> cmd;
         }//end of setup
         if (cmd == "game") {
-            cout << "DEBUG: entered game" << endl;
             //CREATE PLAYERS
             string wh;
             string bl;
@@ -180,8 +184,8 @@ int main() {
             if (bl == "computer2") {};
             if (bl == "computer3") {};
             if (bl == "computer4") {};
-            cout << "DEBUG: players are: " << wh << " " << bl << endl;
             if (!already_setup) {
+                b.setCount('+',32);
                 //inserting white player pieces
                 b.insert(R1,'R');
                 b.insert(N1,'N');
@@ -226,9 +230,8 @@ int main() {
                 bplayer->setKing(bking);
             }
             cout << b;
-            while (game_finished == false) {
+            while (1) {
                 cin >> cmd;
-                cout << "DEBUG: entered inner game loop" << endl;
                 if (cin.eof()) { //if player decides to end program mid game
                     cout << "Final Score:" << endl;
                     cout << "White: " << wpoints << endl;
@@ -236,14 +239,12 @@ int main() {
                     return 0;
                 }
                 if (cmd == "resign") {
-                    game_finished = true; //will break from game on next iteraiton
                     //update player points
                     if (turn == White) ++bpoints;
                     else ++wpoints;
                     break;
                 }
                 if (cmd == "move") {
-                    cout << "DEBUG: entered move" << endl;
                     string s;
                     getline(cin,s);
                     char oldcol;
@@ -255,66 +256,116 @@ int main() {
                     ss >> oldcol >> oldrow >> newcol >> newrow >> promotion;
                     Pos old_pos = {8-oldrow, colmap.at(oldcol)};
                     Pos new_pos = {8-newrow, colmap.at(newcol)};
-                    cout << "old pos is " << old_pos.row << old_pos.col << endl;
-                    cout << "new pos is " << new_pos.row << new_pos.col << endl;
                     //find out who's turn it is
-                    if (turn == White) {
+                    if (turn == Black) {
                         try {
-                            wplayer->move(old_pos, new_pos, promotion);
-                            cout << "DEBUG: white move finished" << endl;
+                            bplayer->move(old_pos, new_pos, promotion);
+                        }
+                        catch(king_attacked &o) {
+                            cout << "King in check. Try again." << endl;
+                            continue;
                         }
                         catch(invalid_move &o) {
                             cout << "Invalid move. Try Again." << endl;
+                            continue;
                         }
                         catch(outofrange &o) {
                             cout << "Out of Range. Try Again." << endl;
+                            continue;
                         }
                         catch(samepos &o) {
                             cout << "Same position. Try Again." << endl;
+                            continue;
                         }
                         catch(emptycell &o) {
                             cout << "Empty cell. Try Again." << endl;
+                            continue;
                         }
                         catch(notplayerpiece &o) {
                             cout << "Not Player Piece. Try Again." << endl;
+                            continue;
                         }
                         catch(ownpiece &o) {
                             cout << "Own Piece. Try Again." << endl;
+                            continue;
                         }
                         catch(illegalmove &o) {
                             cout << "Illegal Move. Try Again." << endl;
+                            continue;
+                        }
+                        catch(castling_fail &o) {
+                            cout << "Castling invalid. Try Again." << endl;
+                            continue;
                         }
                         catch(tester &o) {
                             cout << "Test pickle rick. Try Again." << endl;
+                            continue;
                         }
-                    } else { //turn is Black
+                    } else { //turn is White
                         try {
-                            bplayer->move(old_pos, new_pos, promotion);
-                            cout << "DEBUG: black move finished" << endl;
+                            wplayer->move(old_pos, new_pos, promotion);
+                        }
+                        catch(king_attacked &o) {
+                            cout << "King in check. Try again." << endl;
+                            continue;
                         }
                         catch(invalid_move &o) {
                             cout << "Invalid move. Try Again." << endl;
+                            continue;
                         }
                         catch(outofrange &o) {
                             cout << "Out of Range. Try Again." << endl;
+                            continue;
                         }
                         catch(samepos &o) {
                             cout << "Same position. Try Again." << endl;
+                            continue;
                         }
                         catch(emptycell &o) {
                             cout << "Empty cell. Try Again." << endl;
+                            continue;
                         }
                         catch(notplayerpiece &o) {
                             cout << "Not Player Piece. Try Again." << endl;
+                            continue;
                         }
                         catch(ownpiece &o) {
                             cout << "Own Piece. Try Again." << endl;
+                            continue;
                         }
                         catch(illegalmove &o) {
-                            cout << "Illegal Move" << endl;
+                            cout << "Illegal Move. Try Again." << endl;
+                            continue;
+                        }
+                        catch(castling_fail &o) {
+                            cout << "Castling invalid. Try Again." << endl;
+                            continue;
                         }
                         catch(tester &o) {
-                            cout << "Test pickle rick" << endl;
+                            cout << "Test pickle rick. Try Again." << endl;
+                            continue;
+                        }
+                    }
+                    //check stalemate for only 2 kings in board
+                    if (b.getCount() == 2) {
+                        cout << "Stalemate!" << endl;
+                        break;
+                    }
+                    if (turn == White) {
+                        bool legalexists = bplayer->LegalMoveExists();
+                        if (b.isAttacked(bplayer->getKing()->getPos())) {
+                            if (legalexists) {
+                                cout << "Black is in check." << endl;
+                            } else {
+                                cout << "Checkmate! White wins!" << endl;
+                                ++wpoints;
+                                break;
+                            }
+                        } else {
+                            if (legalexists == false) {
+                                cout << "Stalemate!" << endl;
+                                break;
+                            }
                         }
                     }
                     if (turn == Black) {
@@ -334,25 +385,14 @@ int main() {
                             }
                         }
                     }
-                    if (turn == White) {
-                        bool legalexists = bplayer->LegalMoveExists();
-                        //bool isattack = b.isAttacked(bking->getPos());
-                        
-                        
-                       // if (isattack == false) throw tester();
-                        if (b.isAttacked(bplayer->getKing()->getPos())) {
-                            if (legalexists) {
-                                cout << "Black is in check." << endl;
-                            } else {
-                                cout << "Checkmate! White wins!" << endl;
-                                ++wpoints;
-                                break;
-                            }
-                        } else {
-                            if (legalexists == false) {
-                                cout << "Stalemate!" << endl;
-                                break;
-                            }
+                    
+                    if (b.getMoves().back()->specialMove == "enPassantSetup") {
+                        b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col]->setPassant(true);
+                        if ((b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col - 1]) != nullptr) {
+                            (b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col - 1])->setPassant(true);
+                        }
+                        if ((b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col + 1]) != nullptr) {
+                            (b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col + 1])->setPassant(true);
                         }
                     }
                 }
@@ -360,7 +400,7 @@ int main() {
                 cout<<b;
                 ///////// SWITCH TURNS /////////
                 if (turn == White) turn = Black;
-                if (turn == Black) turn = White;
+                else turn = White;
                 ////////////////////////////////
                 
             }//end of game_finished

@@ -12,8 +12,22 @@
 #include "bishop.h"
 #include "errors.h"
 #include <sstream>
+#include <cmath>
 using namespace std;
 
+vector<Move*> Board::getMoves() {
+    return moves;
+}
+
+
+void Board::setCount(char c, int i) {
+    if (c == '-') count = count - i;
+    else count = count + i;
+}
+
+int Board::getCount() const {
+    return count;
+}
 
 void Board::insert (Pos pos, char letter) {
     int r = pos.row;
@@ -41,7 +55,7 @@ void Board::remove (Pos pos) {
 }
 vector<vector<Piece*>> Board::getPieces() const { return pieces; }
 
-Board::Board() { //sets up new 8x8 board
+Board::Board() : count{0} { //sets up new 8x8 board
     for(int i=0; i<8; ++i) {
         vector<Piece*> P;
         for (int j=0; j<8; ++j) {
@@ -56,7 +70,6 @@ Board::~Board() {}
 
 
 ostream& operator<<(ostream &os, const Board &b) {
-    cout << "SENT FROM board.cc: debugging output operator" << endl;
     //store column and row indices
     std::vector<std::vector<char>> theDisplay;
     for(int i=0; i<10; ++i) {
@@ -92,19 +105,6 @@ ostream& operator<<(ostream &os, const Board &b) {
             }
         }
     }
-    //DEBUG//////////////
-    /*
-     stringstream ss;
-     for(int i=0; i<10; ++i) {
-     for(int j=0; j<10; ++j) {
-     if (!b.outOfRange(Pos{i,j})) { //if in range
-     ss << *(b.getPieces()[0][0]);
-     char c;
-     ss >> c;
-     theDisplay[i][j] = c;
-     }
-     }
-     }*/
     for (int i=0; i<8; ++i) {
         for (int j=2; j<10; ++j) {
             if (b.getPieces()[i][j-2] != nullptr) {
@@ -133,20 +133,31 @@ void Board::makeTheMove(Pos mPos, Pos tPos, char prm){
     //Promotion Condition
     if((pieces[mPos.row][mPos.col]->isPawn() == true) &&
        ((tPos.row == 7) || (tPos.row == 0))) {
-        Color c = Black;
-        if(tPos.row == 7) {
-            c = Black;
-        } else if(tPos.row == 0) {
-            c = Black;
-        }
+        RegularMove = false;
         Piece* promotionPiece = NULL;
-        if(prm == 'R') {
-            promotionPiece = new Rook(c, {tPos.row, tPos.col});
-        } else if (prm == 'B') {
-            promotionPiece = new Bishop(c, {tPos.row, tPos.col});
-        } else {
-            promotionPiece = new Queen(c, {tPos.row, tPos.col});
+        if(tPos.row == 7) {
+            if(prm == 'r') {
+                promotionPiece = new Rook(Black, {tPos.row, tPos.col});
+            } else if (prm == 'b') {
+                promotionPiece = new Bishop(Black, {tPos.row, tPos.col});
+            } else if (prm == 'n') {
+                promotionPiece = new Knight(Black, {tPos.row, tPos.col});
+            } else {
+                promotionPiece = new Queen(Black, {tPos.row, tPos.col});
+            }
+        } else if(tPos.row == 0) {
+            if(prm == 'R') {
+                promotionPiece = new Rook(White, {tPos.row, tPos.col});
+            } else if (prm == 'B') {
+                promotionPiece = new Bishop(White, {tPos.row, tPos.col});
+            } else if (prm == 'N') {
+                promotionPiece = new Knight(White, {tPos.row, tPos.col});
+            } else {
+                promotionPiece = new Queen(White, {tPos.row, tPos.col});
+            }
         }
+        
+        
         pieces[tPos.row][tPos.col] = promotionPiece;
         pieces[mPos.row][mPos.col] = nullptr;
         Move *m = new Move{mPos, tPos, nullptr, "Promotion"};
@@ -154,10 +165,10 @@ void Board::makeTheMove(Pos mPos, Pos tPos, char prm){
     }
     
     
-    
     //possible enPassant capture:
     if (((mPos.row == 3 && tPos.row == 2) || (mPos.row == 4 && tPos.row == 5)) &&
         (abs(mPos.col - tPos.col) == 1) &&
+        (pieces[mPos.row][mPos.col] != nullptr) &&
         (pieces[tPos.row][tPos.col] == nullptr) &&
         (pieces[mPos.row][mPos.col]->isPawn() == true)) {
         RegularMove = false;
@@ -176,11 +187,15 @@ void Board::makeTheMove(Pos mPos, Pos tPos, char prm){
         pieces[moves.back()->newPos.row][moves.back()->newPos.col]->setPassant(false);
         if ((moves.back()->newPos.col + 1 == moves.back()->oldPos.col) &&
             (moves.back()->oldPos.col - 2 >= 0)) {
-            pieces[moves.back()->oldPos.row][moves.back()->oldPos.col - 2]->setPassant(false);
+            if(pieces[moves.back()->oldPos.row][moves.back()->oldPos.col - 2] != nullptr) {
+                pieces[moves.back()->oldPos.row][moves.back()->oldPos.col - 2]->setPassant(false);
+            }
         }
         if ((moves.back()->newPos.col - 1 == moves.back()->oldPos.col) &&
             (moves.back()->oldPos.col + 2 <= 7)) {
-            pieces[moves.back()->oldPos.row][moves.back()->oldPos.col + 2]->setPassant(false);
+            if(pieces[moves.back()->oldPos.row][moves.back()->oldPos.col + 2] != nullptr) {
+                pieces[moves.back()->oldPos.row][moves.back()->oldPos.col + 2]->setPassant(false);
+            }
         }
     }
     
@@ -188,28 +203,32 @@ void Board::makeTheMove(Pos mPos, Pos tPos, char prm){
         //if the next move is not enPassant we set all enPassant fields to false before
         //the other conditions
         pieces[moves.back()->newPos.row][moves.back()->newPos.col]->setPassant(false);
-        pieces[moves.back()->newPos.row][moves.back()->newPos.col + 1]->setPassant(false);
-        pieces[moves.back()->newPos.row][moves.back()->newPos.col - 1]->setPassant(false);
+        if(!outOfRange({moves.back()->newPos.row, moves.back()->newPos.col + 1}) && (pieces[moves.back()->newPos.row][moves.back()->newPos.col + 1] != nullptr)) {
+            pieces[moves.back()->newPos.row][moves.back()->newPos.col + 1]->setPassant(false);
+        }
+        if(!outOfRange({moves.back()->newPos.row, moves.back()->newPos.col - 1}) &&
+           pieces[moves.back()->newPos.row][moves.back()->newPos.col - 1] != nullptr) {
+            pieces[moves.back()->newPos.row][moves.back()->newPos.col - 1]->setPassant(false);
+        }
     }
     
     
-    if ((pieces[mPos.row][mPos.col]->isPawn() == true) && //possible enPassant setup (2 forward move)
+    if ((pieces[mPos.row][mPos.col] != nullptr) &&
+        (pieces[mPos.row][mPos.col]->isPawn() == true) && //possible enPassant setup (2 forward move)
         ((mPos.row == 1 && tPos.row == 3) || (mPos.row == 6 && tPos.row == 4))) {
         RegularMove = false;
         Move *m = new Move{mPos, tPos, nullptr, "enPassantSetup"};
         moves.emplace_back(m);
-        pieces[mPos.row][mPos.col]->setPassant(true);
-        pieces[tPos.row][tPos.col] = pieces[mPos.row][mPos.col]; //2 forward move
+        pieces[tPos.row][tPos.col] = pieces[mPos.row][mPos.col]; //2 forward
         pieces[tPos.row][tPos.col]->updatePos(tPos);
         pieces[mPos.row][mPos.col] = nullptr;
-        pieces[tPos.row][tPos.col - 1]->setPassant(true);
-        pieces[tPos.row][tPos.col + 1]->setPassant(true);
     }
     
     
-    if ((pieces[mPos.row][mPos.col]->getMoved() == false) &&   //short-castling condition for both colors
+    if ((pieces[mPos.row][mPos.col] != nullptr) &&
+        (pieces[mPos.row][mPos.col]->getMoved() == false) &&   //short-castling condition for both colors
         ((mPos.row == 0) || (mPos.row == 7)) && (mPos.col == 4) &&
-        (tPos.row == 6)) {
+        (tPos.col == 6)) {
         RegularMove = false;
         Move *m = new Move{mPos, tPos, nullptr, "Castling"};
         moves.emplace_back(m);
@@ -220,11 +239,17 @@ void Board::makeTheMove(Pos mPos, Pos tPos, char prm){
         pieces[mPos.row][5]->updatePos({mPos.row, 5});
         pieces[mPos.row][7] = nullptr;
         pieces[mPos.row][5]->setMoved(true);
+        if (isAttacked({mPos.row, 5}) == true) {
+            throw castling_fail();
+        }
+
+        
     }
     
-    if ((pieces[mPos.row][mPos.col]->getMoved() == false) &&   //long-castling condition for both colors
+    if ((pieces[mPos.row][mPos.col] != nullptr) &&
+        (pieces[mPos.row][mPos.col]->getMoved() == false) &&   //long-castling condition for both colors
         ((mPos.row == 0) || (mPos.row == 7)) && (mPos.col == 4) &&
-        (tPos.row == 2)) {
+        (tPos.col == 2)) {
         RegularMove = false;
         Move *m = new Move{mPos, tPos, nullptr, "Castling"};
         moves.emplace_back(m);
@@ -235,6 +260,9 @@ void Board::makeTheMove(Pos mPos, Pos tPos, char prm){
         pieces[mPos.row][3]->updatePos({mPos.row, 3});
         pieces[mPos.row][0] = nullptr;
         pieces[mPos.row][3]->setMoved(true);
+        if (isAttacked({mPos.row, 3}) == true) {
+            throw castling_fail();
+        }
     }
     
     if(RegularMove == true) {
@@ -272,6 +300,7 @@ void Board::undo() {
                 pieces[moves.back()->oldPos.row][moves.back()->oldPos.col + 2]->setPassant(true);
             }
             moves.pop_back();
+            return;
         }
         if(moves.back()->specialMove == "enPassantSetup") {
             pieces[moves.back()->oldPos.row][moves.back()->oldPos.col] = pieces[moves.back()->newPos.row][moves.back()->newPos.col]; //Put the 2 forward pawn back
@@ -282,6 +311,7 @@ void Board::undo() {
             pieces[moves.back()->newPos.row][moves.back()->newPos.col + 1]->setPassant(false);
             pieces[moves.back()->newPos.row][moves.back()->newPos.col - 1]->setPassant(false);
             moves.pop_back();
+            return;
         }
         if(moves.back()->specialMove == "Castling") {
             if(moves.back()->newPos.col == 2) { //long castling
@@ -305,6 +335,7 @@ void Board::undo() {
                 pieces[moves.back()->oldPos.row][7]->updatePos({moves.back()->oldPos.row, 7});
                 moves.pop_back();
             }
+            return;
         }
         if(moves.back()->specialMove == "Promotion") {
             Color c;
@@ -317,6 +348,7 @@ void Board::undo() {
             Piece* promotionPiece = new Pawn(c, moves.back()->oldPos);
             pieces[moves.back()->oldPos.row][moves.back()->oldPos.col] = promotionPiece;
             moves.pop_back();
+            return;
         }
         
         if(moves.back()->specialMove == "Regular") {
@@ -324,6 +356,7 @@ void Board::undo() {
             pieces[moves.back()->newPos.row][moves.back()->newPos.col] = moves.back()->captured;
             pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->updatePos(moves.back()->oldPos);
             moves.pop_back();
+            return;
         }
         
         if(moves.back()->specialMove == "FirstMove") {
@@ -332,6 +365,7 @@ void Board::undo() {
             pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->updatePos(moves.back()->oldPos);
             pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->setMoved(false);
             moves.pop_back();
+            return;
         }
     }
 }

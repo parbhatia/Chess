@@ -20,12 +20,14 @@ bool King::IsLegal(Pos newPos, vector <vector<Piece*>> pieces) {  //Assuming new
 			if ((newPos.row == 7) && (newPos.col == 6) &&            //White short-castling e1-g1
 				(pieces[newPos.row][newPos.col] == nullptr) &&       //g1 must be empty
 				(pieces[newPos.row][newPos.col - 1] == nullptr) &&   //f1 must be empty
+                (pieces[newPos.row][newPos.col + 1] != nullptr) &&
 				(pieces[newPos.row][newPos.col + 1]->getMoved() == false)) { //right-bottom castle must not moved
 				return true;
 			} else if ((newPos.row == 7) && (newPos.col == 2) &&     //White long-castling e1-c1
 				(pieces[newPos.row][newPos.col] == nullptr) &&       //c1 must be empty
 				(pieces[newPos.row][newPos.col - 1] == nullptr) &&   //b1 must be empty
 				(pieces[newPos.row][newPos.col + 1] == nullptr) &&   //d1 must be empty
+                (pieces[newPos.row][newPos.col - 2] != nullptr) &&
 				(pieces[newPos.row][newPos.col - 2]->getMoved() == false)) { //left-bottom castle must not moved
                 return true;
 			} else {
@@ -36,12 +38,14 @@ bool King::IsLegal(Pos newPos, vector <vector<Piece*>> pieces) {  //Assuming new
 			if ((newPos.row == 0) && (newPos.col == 6) &&            //Black short-castling e7-g7
 				(pieces[newPos.row][newPos.col] == nullptr) &&       //g7 must be empty
 				(pieces[newPos.row][newPos.col - 1] == nullptr) &&   //f7 must be empty
+                (pieces[newPos.row][newPos.col + 1] != nullptr) &&
 				(pieces[newPos.row][newPos.col + 1]->getMoved() == false)) { //right-top castle must not moved
 				return true;
 			} else if ((newPos.row == 0) && (newPos.col == 2) &&     //Black long-castling e7-c7
 				(pieces[newPos.row][newPos.col] == nullptr) &&       //c7 must be empty
 				(pieces[newPos.row][newPos.col - 1] == nullptr) &&   //b7 must be empty
 				(pieces[newPos.row][newPos.col + 1] == nullptr) &&   //d7 must be empty
+                (pieces[newPos.row][newPos.col - 2] != nullptr) &&
 				(pieces[newPos.row][newPos.col - 2]->getMoved() == false)) { //left-top castle must not moved
                 return true;
 			} else {

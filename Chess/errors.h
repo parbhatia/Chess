@@ -10,5 +10,7 @@ class notplayerpiece {};
 class ownpiece{};
 class illegalmove{};
 class tester{};
+class king_attacked{};
+class castling_fail{};
 
 #endif
