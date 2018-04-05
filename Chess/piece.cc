@@ -43,6 +43,6 @@ bool Piece::getPassant() {
 
 void Piece::setPassant(bool val) {}
 
-Piece::Piece(Color c, Pos pos, bool hasMoved, int priority): color{c}, pos{pos}, hasMoved{hasMoved}, priority{priority} {}
+Piece::Piece(Color c, Pos pos, int priority, bool hasMoved): color{c}, pos{pos}, priority{priority}, hasMoved{hasMoved} {}
 
 Piece::~Piece() {}
