@@ -82,7 +82,6 @@ void ComputerPlayer::moveLvl1(){
     }
     
     
-    //cout << "targetposindex is: " << TargetPosIndex << endl;
 	Pos PiecePos = legalMoves[PiecePosIndex].back();
 	Pos TargetPos = legalMoves[PiecePosIndex][TargetPosIndex];
 	//getLegalMoves() function returns only legal moves, so we're safe:
@@ -102,8 +101,8 @@ void ComputerPlayer::moveLvl2(){
 		for (auto &i: PieceMoves){ //going through every legal move of the Piece
 
 			if (&i != &PieceMoves.back()){ //making sure not to use position of the Piece as target cell while making the move
-				makeTheMove(PiecePos, i); //moving Piece to i
-				if( (B->getPieces())[i.row][i.col]->isLegal(B->enemyKingPos(color), B->getPieces()) ) { //if we're attacking enemy king:
+				B->makeTheMove(PiecePos, i); //moving Piece to i
+                if(B->getPieces()[i.row][i.col]->IsLegal(B->enemyKingPos(color), B->getPieces())) { //if we're attacking enemy king:
 					B->undo();
 					preferredMovePos[0] = PiecePos;
 					preferredMovePos[1] = i;
@@ -111,18 +110,18 @@ void ComputerPlayer::moveLvl2(){
 				}
 				B->undo();
 
-				if((B->getPieces)[i.row][i.col] != NULL) { //if we're capturing a piece
+                if((B->getPieces)()[i.row][i.col] != NULL) { //if we're capturing a piece
 					preferredMovePos[0] = PiecePos;
 					preferredMovePos[1] = i;
 				}
 			}
 		}
 	}
-	if(preferredMovePos[0].row == -1 && preferredMovePos[0].col == -1 ||
-		preferredMovePos[1].row == -1 && preferredMovePos[1].col == -1) { //all cells are empty and moving to one of them doesn't attack enemy king
+	if((preferredMovePos[0].row == -1 && preferredMovePos[0].col == -1) ||
+		(preferredMovePos[1].row == -1 && preferredMovePos[1].col == -1)) { //all cells are empty and moving to one of them doesn't attack enemy king
 		moveLvl1();
 	}
-	else makeTheMove(preferredMovePos[0], preferredMovePos[1]);
+	else B->makeTheMove(preferredMovePos[0], preferredMovePos[1]);
 }
 
 void ComputerPlayer::moveLvl3(){
@@ -139,8 +138,8 @@ void ComputerPlayer::moveLvl3(){
 		for (auto &i: PieceMoves){ //going through every legal move of the Piece
 
 			if (&i != &PieceMoves.back()){ //making sure not to use position of the Piece as target cell while making the move
-				makeTheMove(PiecePos, i); //moving Piece to i
-				if( (B->getPieces())[i.row][i.col]->isLegal(B->enemyKingPos(color), B->getPieces()) ) { //if we're attacking enemy king:
+				B->makeTheMove(PiecePos, i); //moving Piece to i
+                if( (B->getPieces())[i.row][i.col]->IsLegal(B->enemyKingPos(color), B->getPieces()) ) { //if we're attacking enemy king:
 					curPriority += 60;
 				}
 				if (B->isAttacked(i)) curPriority -= 3 * (B->getPieces())[i.row][i.col]->getPriority() / 2;
@@ -161,11 +160,11 @@ void ComputerPlayer::moveLvl3(){
 		}
 	}
 
-	if(preferredMovePos[0].row == -1 && preferredMovePos[0].col == -1 ||
-		preferredMovePos[1].row == -1 && preferredMovePos[1].col == -1) { //all moves evaluate to 0
+	if((preferredMovePos[0].row == -1 && preferredMovePos[0].col == -1) ||
+		(preferredMovePos[1].row == -1 && preferredMovePos[1].col == -1)) { //all moves evaluate to 0
 		moveLvl2();
 	}
-	else makeTheMove(preferredMovePos[0], preferredMovePos[1]);
+	else B->makeTheMove(preferredMovePos[0], preferredMovePos[1]);
 }
 
 void ComputerPlayer::moveLvl4(){}

@@ -19,6 +19,11 @@ vector<Move*> Board::getMoves() {
     return moves;
 }
 
+void Board::setKing(Piece *k, Color c) {
+    if (c == White) wk = static_cast<King*>(k);
+    else bk = static_cast<King*>(k);
+}
+
 Pos Board::enemyKingPos(Color color) {
     if (color == White) return bk->getPos();
     else return wk->getPos();

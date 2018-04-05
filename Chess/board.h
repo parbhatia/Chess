@@ -17,6 +17,7 @@ class Board {
     King *bk;
     public:
     Pos enemyKingPos(Color color);
+    void setKing(Piece *k, Color c);
     std::vector <Move*> getMoves();
     void setCount(char c, int i=1);
     int getCount() const;

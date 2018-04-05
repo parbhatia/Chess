@@ -18,7 +18,6 @@
 #include "color.h"
 #include "move.h"
 #include "errors.h"
-#include "window.h"
 using namespace std;
 
 int main() {
@@ -43,7 +42,7 @@ int main() {
     while (true) {
         ///////// GAME SETUP: RESETS EVERY GAME /////////
         Board b;
-        Xwindow *x = new Xwindow(8,8);
+        //Xwindow *x = new Xwindow(8,8);
         Player *wplayer = NULL;
         Player *bplayer = NULL;
         King *wking = new King(White,{-1,-1});
@@ -177,14 +176,14 @@ int main() {
             //White player
             if (wh == "human") { wplayer = new HumanPlayer(White, &b, nullptr); }
             if (wh == "computer1") { wplayer = new ComputerPlayer(White, &b, nullptr, "1"); };
-            if (wh == "computer2") {};
-            if (wh == "computer3") {};
+            if (wh == "computer2") { wplayer = new ComputerPlayer(White, &b, nullptr, "2"); };
+            if (wh == "computer3") { wplayer = new ComputerPlayer(White, &b, nullptr, "3"); };
             if (wh == "computer4") {};
             //Black player
             if (bl == "human") { bplayer = new HumanPlayer(Black, &b, nullptr); }
             if (bl == "computer1") { bplayer = new ComputerPlayer(Black, &b, nullptr, "1"); };
-            if (bl == "computer2") {};
-            if (bl == "computer3") {};
+            if (bl == "computer2") { bplayer = new ComputerPlayer(Black, &b, nullptr, "2"); };
+            if (bl == "computer3") { bplayer = new ComputerPlayer(Black, &b, nullptr, "3"); };
             if (bl == "computer4") {};
             if (!already_setup) {
                 b.setCount('+',32);
@@ -224,12 +223,16 @@ int main() {
                 b.insert(p8,'p');
                 //Players set their king pointers
                 wplayer->setKing(b.getPieces()[7][4]);
+                b.setKing(b.getPieces()[7][4],White);
                 bplayer->setKing(b.getPieces()[0][4]);
+                b.setKing(b.getPieces()[0][4],Black);
             }
             else { //already setup is true
                 //Players set their kings
                 wplayer->setKing(wking);
                 bplayer->setKing(bking);
+                b.setKing(wking,White);
+                b.setKing(bking,Black);
             }
             cout << b;
             while (1) {
