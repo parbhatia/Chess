@@ -94,7 +94,7 @@ vector<Pos> Bishop::getPossibleMoves(vector <vector<Piece*>> pieces) {  //We nee
     return vec;
 }
 
-Bishop::Bishop(Color c, Pos Pos, bool hasMoved, int priority): Piece(c , Pos) {}
+Bishop::Bishop(Color c, Pos Pos, int priority, bool hasMoved): Piece(c , Pos, priority, hasMoved) {}
 
 void Bishop::print(std::ostream& out) const {
     if (getColor() == White) out << 'B';
