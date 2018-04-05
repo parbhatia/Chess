@@ -167,7 +167,7 @@ vector<Pos> Queen::getPossibleMoves(vector<vector<Piece*>> pieces) { //We need t
     return vec;
 }
 
-Queen::Queen(Color c, Pos pos, bool hasMoved, int priority): Piece{c, pos, hasMoved, priority} {}
+Queen::Queen(Color c, Pos pos, int priority, bool hasMoved): Piece{c, pos, priority, hasMoved} {}
 
 
 void Queen::print(std::ostream& out) const {
