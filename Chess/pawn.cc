@@ -113,4 +113,5 @@ void Pawn::print(std::ostream& out) const {
     else out << 'p';
 }
 
+Pawn::~Pawn() {}
 

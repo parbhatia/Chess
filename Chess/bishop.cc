@@ -101,4 +101,5 @@ void Bishop::print(std::ostream& out) const {
     else out << 'b';
 }
 
+Bishop::~Bishop() {}
 

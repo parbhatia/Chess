@@ -174,3 +174,5 @@ void Queen::print(std::ostream& out) const {
     if (getColor() == White) out << 'Q';
     else out << 'q';
 }
+
+Queen::~Queen() {}

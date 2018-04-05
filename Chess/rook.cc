@@ -92,4 +92,4 @@ void Rook::print(std::ostream& out) const {
     else out << 'r';
 }
 
-
+Rook::~Rook() {}

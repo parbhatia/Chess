@@ -11,6 +11,7 @@ public:
     std::vector<Pos> getPossibleMoves(std::vector <std::vector<Piece*>> pieces) override;
 	King(Color c, Pos pos, bool hasMoved = false);
     void print(std::ostream& out) const override;
+    ~King() override;
 };
 
 #endif

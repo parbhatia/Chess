@@ -87,3 +87,5 @@ void Knight::print(std::ostream& out) const {
     else out << 'n';
 }
 
+Knight::~Knight() {}
+

@@ -141,3 +141,6 @@ void King::print(std::ostream& out) const {
     else out << 'k';
 }
 
+
+King::~King() {}
+

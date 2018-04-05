@@ -257,7 +257,6 @@ int main() {
                     stringstream ss(s);
                     ss >> oldcol >> oldrow >> newcol >> newrow >> promotion;
                     if (s == "") { // computer move
-                        cout << "computer move" << endl;
                         if (turn == Black) {
                             try {
                                 bplayer->move();
@@ -353,7 +352,6 @@ int main() {
                         Pos new_pos = {8-newrow, colmap.at(newcol)};
                         //find out who's turn it is
                         if (turn == Black) {
-                            cout << "human move" << endl;
                             try {
                                 bplayer->move(old_pos, new_pos, promotion);
                             }

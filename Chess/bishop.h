@@ -13,5 +13,6 @@ public:
     std::vector<Pos> getPossibleMoves(std::vector <std::vector<Piece*>> pieces) override;
 	Bishop(Color c, Pos Pos, bool hasMoved = false);
     void print(std::ostream& out) const override;
+    ~Bishop() override;
 };
 #endif

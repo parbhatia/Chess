@@ -15,6 +15,7 @@ class Pawn : public Piece {
         std::vector<Pos> getPossibleMoves(std::vector<std::vector<Piece*>> pieces) override;
 	Pawn(Color c, Pos pos, bool hasMoved = false, bool enPassant = false);
     void print(std::ostream& out) const override;
+    ~Pawn() override;
 };
 
 #endif

@@ -20,6 +20,7 @@
 		4BD5608C207335B3005A2AF0 /* queen.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD56074207335B2005A2AF0 /* queen.cc */; };
 		4BD5608D207335B3005A2AF0 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5607A207335B2005A2AF0 /* Makefile */; };
 		4BD5608E207335B3005A2AF0 /* computerPlayer.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD5607E207335B3005A2AF0 /* computerPlayer.cc */; };
+		4BD560B92075C3FE005A2AF0 /* window.cc in Sources */ = {isa = PBXBuildFile; fileRef = 4BD560B82075C3FE005A2AF0 /* window.cc */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -65,6 +66,8 @@
 		4BD5607E207335B3005A2AF0 /* computerPlayer.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = computerPlayer.cc; sourceTree = "<group>"; };
 		4BD5607F207335B3005A2AF0 /* computerPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = computerPlayer.h; sourceTree = "<group>"; };
 		4BD56080207335B3005A2AF0 /* errors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = errors.h; sourceTree = "<group>"; };
+		4BD560B72075C3FE005A2AF0 /* window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = window.h; sourceTree = "<group>"; };
+		4BD560B82075C3FE005A2AF0 /* window.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = window.cc; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +120,8 @@
 				4BD5606D207335B2005A2AF0 /* pawn.cc */,
 				4BD5607D207335B3005A2AF0 /* pawn.h */,
 				4BD56072207335B2005A2AF0 /* piece.cc */,
+				4BD560B82075C3FE005A2AF0 /* window.cc */,
+				4BD560B72075C3FE005A2AF0 /* window.h */,
 				4BD56079207335B2005A2AF0 /* piece.h */,
 				4BD56077207335B2005A2AF0 /* piecepositions.h */,
 				4BD56064207335B1005A2AF0 /* player.cc */,
@@ -200,6 +205,7 @@
 				4BD56082207335B3005A2AF0 /* knight.cc in Sources */,
 				4BD5608D207335B3005A2AF0 /* Makefile in Sources */,
 				4BD56084207335B3005A2AF0 /* rook.cc in Sources */,
+				4BD560B92075C3FE005A2AF0 /* window.cc in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

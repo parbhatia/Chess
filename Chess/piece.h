@@ -24,6 +24,7 @@ class Piece {
 	Piece(Color c, Pos pos, bool hasMoved = false);
 	//No need a destructor since there is no heap allocated field and default dest is enough
     friend std::ostream& operator<<(std::ostream& out, const Piece &p);
+    virtual ~Piece();
 };
 
 

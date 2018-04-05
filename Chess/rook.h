@@ -12,8 +12,8 @@ public:
     std::vector<Pos> getPossibleMoves(std::vector <std::vector<Piece*>> pieces) override;
 	Rook(Color c, Pos pos, bool hasMoved = false);
     void print(std::ostream& out) const override;
+    ~Rook() override;
 };
-
 
 
 #endif
