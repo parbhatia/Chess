@@ -134,7 +134,7 @@ vector<Pos> King::getPossibleMoves(vector <vector<Piece*>> pieces) {
     return vec;
 }
 
-King::King(Color c, Pos pos, bool hasMoved) : Piece{c,pos} {}
+King::King(Color c, Pos pos, int priority, bool hasMoved) : Piece{c, pos, priority, hasMoved} {}
 
 void King::print(std::ostream& out) const {
     if (getColor() == White) out << 'K';
