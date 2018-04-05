@@ -21,6 +21,7 @@ bool Pawn::IsLegal(Pos newPos, vector <vector<Piece*>> pieces) {
             (getPos().row == (newPos.row - 1)) &&
             (pieces[newPos.row][newPos.col] == nullptr)) ||  //1 forward
            ((getMoved() == false) &&
+            (newPos.row <= 7) &&
             (getPos().col == newPos.col) &&
             (getPos().row == (newPos.row - 2)) &&   //2 forward
             (pieces[newPos.row][newPos.col] == nullptr) &&
@@ -29,7 +30,9 @@ bool Pawn::IsLegal(Pos newPos, vector <vector<Piece*>> pieces) {
             (getPos().row == (newPos.row - 1)) &&   //1 diagnol move
             (pieces[newPos.row][newPos.col] != nullptr) &&
             (pieces[newPos.row][newPos.col]->getColor() == White)) ||  //regular attack
-           ((pieces[newPos.row][newPos.col] == nullptr) && //enPassant
+            ((newPos.row <= 7) && (newPos.col <= 7) &&
+             (newPos.col >= 0) &&
+            (pieces[newPos.row][newPos.col] == nullptr) && //enPassant
             (pieces[newPos.row - 1][newPos.col] != nullptr) &&
             (pieces[newPos.row - 1][newPos.col]->getColor() == White) &&
             (pieces[newPos.row - 1][newPos.col]->getPassant() == true) &&
@@ -45,11 +48,16 @@ bool Pawn::IsLegal(Pos newPos, vector <vector<Piece*>> pieces) {
             (getPos().row == (newPos.row + 1)) &&
             (pieces[newPos.row][newPos.col] == nullptr)) ||  //1 forward
            ((getMoved() == false) &&
-            (getPos().col == newPos.col) && (getPos().row == (newPos.row + 2)) &&   //2 forward
-            (pieces[newPos.row][newPos.col] == nullptr) && (pieces[newPos.row + 1][newPos.col] == nullptr)) ||
+            (newPos.row >= 0) &&
+            (getPos().col == newPos.col) &&
+            (getPos().row == (newPos.row + 2)) &&   //2 forward
+            (pieces[newPos.row][newPos.col] == nullptr) &&
+            (pieces[newPos.row + 1][newPos.col] == nullptr)) ||
            (((getPos().col == (newPos.col + 1)) || (getPos().col == (newPos.col - 1))) && (getPos().row == (newPos.row + 1)) &&   //1 diagnol
             (pieces[newPos.row][newPos.col] != nullptr) && (pieces[newPos.row][newPos.col]->getColor() == Black)) ||  //regular attack
-           ((pieces[newPos.row][newPos.col] == nullptr) &&
+           ((newPos.row >= 0) && (newPos.col <= 7) &&
+            (newPos.col >= 0) &&
+            (pieces[newPos.row][newPos.col] == nullptr) &&
             (pieces[newPos.row + 1][newPos.col] != nullptr) &&  //enPassant
             (pieces[newPos.row + 1][newPos.col]->getColor() == Black) &&
             (pieces[newPos.row + 1][newPos.col]->getPassant() == true) &&

@@ -489,12 +489,14 @@ int main() {
                     if (b.getMoves().back()->specialMove == "enPassantSetup") {
                         b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col]->setPassant(true);
                         if (!(b.outOfRange({b.getMoves().back()->newPos.row, b.getMoves().back()->newPos.col - 1})) &&
-                            (b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col - 1] != nullptr)) {
-                            (b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col - 1])->setPassant(true);
+                            (b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col - 1] != nullptr) &&
+                            (b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col - 1]->getColor() != turn)) {
+                            b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col - 1]->setPassant(true);
                         }
-                        if (!(b.outOfRange({b.getMoves().back()->newPos.row, b.getMoves().back()->newPos.col - 1})) &&
-                            (b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col + 1] != nullptr)) {
-                            (b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col + 1])->setPassant(true);
+                        if (!(b.outOfRange({b.getMoves().back()->newPos.row, b.getMoves().back()->newPos.col + 1})) &&
+                            (b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col + 1] != nullptr) &&
+                            (b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col + 1]->getColor() != turn)) {
+                            b.getPieces()[b.getMoves().back()->newPos.row][b.getMoves().back()->newPos.col + 1]->setPassant(true);
                         }
                     }
                 }

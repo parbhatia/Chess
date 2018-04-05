@@ -10,6 +10,8 @@ void HumanPlayer::move(Pos oldPos, Pos newPos, char prm){
 	Piece* target = B->getPieces()[newPos.row][newPos.col];//piece at newPos
 
 	if (B->outOfRange(oldPos) || B->outOfRange(newPos)) { //out of the board
+        cout << oldPos.row << "," << oldPos.col << endl;
+        cout << newPos.row << "," << newPos.col << endl;
 		throw(outofrange());
 	}
 	else if (oldPos.col == newPos.col && oldPos.row == newPos.row) {//oldPos == newPos

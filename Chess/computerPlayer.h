@@ -7,7 +7,7 @@
 class ComputerPlayer: public Player {
     std::string lvl;
 	public:
-    std::vector<std::vector<Pos>*> getLegalMoves();
+    std::vector<std::vector<Pos>> getLegalMoves();
     void move(Pos curPos = {0,0}, Pos newPos = {0,0}, char prm = 'Q') override;
     void moveLvl1();
     void moveLvl2();

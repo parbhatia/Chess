@@ -137,23 +137,23 @@ void Board::makeTheMove(Pos mPos, Pos tPos, char prm){
         Piece* promotionPiece = NULL;
         if(tPos.row == 7) {
             if(prm == 'r') {
-                promotionPiece = new Rook(Black, {tPos.row, tPos.col});
+                promotionPiece = new Rook(Black, {tPos.row, tPos.col}, true);
             } else if (prm == 'b') {
-                promotionPiece = new Bishop(Black, {tPos.row, tPos.col});
+                promotionPiece = new Bishop(Black, {tPos.row, tPos.col}, true);
             } else if (prm == 'n') {
-                promotionPiece = new Knight(Black, {tPos.row, tPos.col});
+                promotionPiece = new Knight(Black, {tPos.row, tPos.col}, true);
             } else {
-                promotionPiece = new Queen(Black, {tPos.row, tPos.col});
+                promotionPiece = new Queen(Black, {tPos.row, tPos.col}, true);
             }
         } else if(tPos.row == 0) {
             if(prm == 'R') {
-                promotionPiece = new Rook(White, {tPos.row, tPos.col});
+                promotionPiece = new Rook(White, {tPos.row, tPos.col}, true);
             } else if (prm == 'B') {
-                promotionPiece = new Bishop(White, {tPos.row, tPos.col});
+                promotionPiece = new Bishop(White, {tPos.row, tPos.col}, true);
             } else if (prm == 'N') {
-                promotionPiece = new Knight(White, {tPos.row, tPos.col});
+                promotionPiece = new Knight(White, {tPos.row, tPos.col}, true);
             } else {
-                promotionPiece = new Queen(White, {tPos.row, tPos.col});
+                promotionPiece = new Queen(White, {tPos.row, tPos.col}, true);
             }
         }
         
@@ -244,6 +244,7 @@ void Board::makeTheMove(Pos mPos, Pos tPos, char prm){
         pieces[tPos.row][tPos.col] = pieces[mPos.row][mPos.col];
         pieces[tPos.row][tPos.col]->updatePos(tPos);
         pieces[mPos.row][mPos.col] = nullptr;
+        pieces[tPos.row][tPos.col]->setMoved(true);
         pieces[mPos.row][5] = pieces[mPos.row][7]; //moves the castle to the new loc
         pieces[mPos.row][5]->updatePos({mPos.row, 5});
         pieces[mPos.row][7] = nullptr;
@@ -265,6 +266,7 @@ void Board::makeTheMove(Pos mPos, Pos tPos, char prm){
         pieces[tPos.row][tPos.col] = pieces[mPos.row][mPos.col];
         pieces[tPos.row][tPos.col]->updatePos(tPos);
         pieces[mPos.row][mPos.col] = nullptr;
+        pieces[tPos.row][tPos.col]->setMoved(true);
         pieces[mPos.row][3] = pieces[mPos.row][0]; //moves the castle to the new loc
         pieces[mPos.row][3]->updatePos({mPos.row, 3});
         pieces[mPos.row][0] = nullptr;
@@ -279,12 +281,14 @@ void Board::makeTheMove(Pos mPos, Pos tPos, char prm){
             Move* m = new Move{mPos, tPos, pieces[tPos.row][tPos.col], "FirstMove"};
             moves.emplace_back(m); //info about move is pushed to moved vec in board
             pieces[tPos.row][tPos.col] = pieces[mPos.row][mPos.col]; //target cell points to moved piece
+            pieces[tPos.row][tPos.col]->setMoved(true);
             pieces[tPos.row][tPos.col]->updatePos(tPos);
             pieces[mPos.row][mPos.col] = nullptr; //freeing old cell
         } else {
             Move* m = new Move{mPos, tPos, pieces[tPos.row][tPos.col], "Regular"};
             moves.emplace_back(m); //info about move is pushed to moved vec in board
             pieces[tPos.row][tPos.col] = pieces[mPos.row][mPos.col]; //target cell points to moved piece
+            pieces[tPos.row][tPos.col]->setMoved(true);
             pieces[tPos.row][tPos.col]->updatePos(tPos);
             pieces[mPos.row][mPos.col] = nullptr; //freeing old cell
         }
@@ -301,11 +305,17 @@ void Board::undo() {
             pieces[moves.back()->newPos.row][moves.back()->newPos.col] = nullptr;
             pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->setPassant(true);
             if ((moves.back()->newPos.col + 1 == moves.back()->oldPos.col) &&
-                (moves.back()->oldPos.col - 2 >= 0)) {
+                (moves.back()->oldPos.col - 2 >= 0) &&
+                (pieces[moves.back()->oldPos.row][moves.back()->oldPos.col - 2] != nullptr) &&
+                (pieces[moves.back()->oldPos.row][moves.back()->oldPos.col - 2]->getColor() ==
+                (pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->getColor()))) {
                 pieces[moves.back()->oldPos.row][moves.back()->oldPos.col - 2]->setPassant(true);
             }
             if ((moves.back()->newPos.col - 1 == moves.back()->oldPos.col) &&
-                (moves.back()->oldPos.col + 2 <= 7)) {
+                (moves.back()->oldPos.col + 2 <= 7) &&
+                (pieces[moves.back()->oldPos.row][moves.back()->oldPos.col + 2] != nullptr) &&
+                (pieces[moves.back()->oldPos.row][moves.back()->oldPos.col + 2]->getColor() ==
+                 (pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->getColor()))) {
                 pieces[moves.back()->oldPos.row][moves.back()->oldPos.col + 2]->setPassant(true);
             }
             moves.pop_back();
@@ -317,11 +327,11 @@ void Board::undo() {
             pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->setPassant(false);
             pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->setMoved(false);
             pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->updatePos(moves.back()->oldPos);
-            if(!(outOfRange({moves.back()->newPos.row, moves.back()->newPos.col + 1})) && (pieces[moves.back()->newPos.row][moves.back()->newPos.col + 1] != nullptr)) {
+            if(!outOfRange({moves.back()->newPos.row, moves.back()->newPos.col + 1}) &&
+               pieces[moves.back()->newPos.row][moves.back()->newPos.col + 1] != nullptr) {
                 pieces[moves.back()->newPos.row][moves.back()->newPos.col + 1]->setPassant(false);
             }
-            cout << "MADE IT HERE" << endl;
-            if(!(outOfRange({moves.back()->newPos.row, moves.back()->newPos.col - 1})) && (pieces[moves.back()->newPos.row][moves.back()->newPos.col - 1] != nullptr)) {
+            if(!outOfRange({moves.back()->newPos.row, moves.back()->newPos.col - 1}) && pieces[moves.back()->newPos.row][moves.back()->newPos.col - 1] != nullptr) {
                 pieces[moves.back()->newPos.row][moves.back()->newPos.col - 1]->setPassant(false);
             }
             moves.pop_back();
@@ -335,7 +345,7 @@ void Board::undo() {
                 pieces[moves.back()->oldPos.row][moves.back()->oldPos.col]->updatePos(moves.back()->oldPos);
                 pieces[moves.back()->newPos.row][0] = pieces[moves.back()->newPos.row][3];
                 pieces[moves.back()->newPos.row][3] = nullptr;
-                pieces[moves.back()->newPos.row][0]->setMoved(false);
+                (pieces[moves.back()->newPos.row][0])->setMoved(false);
                 pieces[moves.back()->oldPos.row][0]->updatePos({moves.back()->oldPos.row, 0});
                 moves.pop_back();
             } else if (moves.back()->newPos.col == 6) { //short castling
@@ -359,7 +369,7 @@ void Board::undo() {
                 c = White;
             }
             pieces[moves.back()->newPos.row][moves.back()->newPos.col] = nullptr;
-            Piece* promotionPiece = new Pawn(c, moves.back()->oldPos);
+            Piece* promotionPiece = new Pawn(c, moves.back()->oldPos, true);
             pieces[moves.back()->oldPos.row][moves.back()->oldPos.col] = promotionPiece;
             moves.pop_back();
             return;
@@ -385,8 +395,11 @@ void Board::undo() {
 }
 
 bool Board::outOfRange(const Pos p) const {
-    if ((p.row > 7 || p.col > 7) && (p.row < 0 || p.col < 0)) return true;
-    return false;
+    if ((p.row <= 7) && (p.row >= 0) &&
+        (p.col <= 7) && (p.col >= 0)) {
+        return false;
+    }
+    return true;
 }
 
 bool Board::isAttacked(Pos cellPos) {
@@ -395,7 +408,8 @@ bool Board::isAttacked(Pos cellPos) {
         for(int y=0; y<8; ++y) {
             //skipping owned pieces and empty cells:
             if(pieces[i][y] == nullptr) continue;
-            if(piece->getColor() == pieces[i][y]->getColor()) continue;
+            if((piece !=  nullptr)&&
+               (piece->getColor() == pieces[i][y]->getColor())) continue;
             //checking if p can move to curPos
             if (pieces[i][y]->IsLegal(cellPos, pieces)){
                 return true;

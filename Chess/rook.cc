@@ -4,6 +4,7 @@
 using namespace std;
 
 bool Rook::IsLegal(Pos newPos, vector <vector<Piece*>> pieces) {  //Assuming newPos is either empty or enemy
+
     if(getPos().row == newPos.row) {    //moving horizontally
         if(getPos().col < newPos.col) {   //to right
             for(int i = getPos().col + 1; i < newPos.col; ++i) {

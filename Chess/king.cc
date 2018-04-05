@@ -17,13 +17,15 @@ bool King::IsLegal(Pos newPos, vector <vector<Piece*>> pieces) {  //Assuming new
     
     if (getMoved() == false) {
 		if (getColor() == White) {
-			if ((newPos.row == 7) && (newPos.col == 6) &&            //White short-castling e1-g1
+			if ((getPos().row == 7) && (getPos().col == 4) &&
+                (newPos.row == 7) && (newPos.col == 6) &&            //White short-castling e1-g1
 				(pieces[newPos.row][newPos.col] == nullptr) &&       //g1 must be empty
 				(pieces[newPos.row][newPos.col - 1] == nullptr) &&   //f1 must be empty
                 (pieces[newPos.row][newPos.col + 1] != nullptr) &&
 				(pieces[newPos.row][newPos.col + 1]->getMoved() == false)) { //right-bottom castle must not moved
 				return true;
-			} else if ((newPos.row == 7) && (newPos.col == 2) &&     //White long-castling e1-c1
+			} else if ((getPos().row == 7) && (getPos().col == 4) &&
+                       (newPos.row == 7) && (newPos.col == 2) &&     //White long-castling e1-c1
 				(pieces[newPos.row][newPos.col] == nullptr) &&       //c1 must be empty
 				(pieces[newPos.row][newPos.col - 1] == nullptr) &&   //b1 must be empty
 				(pieces[newPos.row][newPos.col + 1] == nullptr) &&   //d1 must be empty
@@ -35,13 +37,15 @@ bool King::IsLegal(Pos newPos, vector <vector<Piece*>> pieces) {  //Assuming new
 			}
 		}
         if (getColor() == Black) {
-			if ((newPos.row == 0) && (newPos.col == 6) &&            //Black short-castling e7-g7
+			if ((getPos().row == 0) && (getPos().col == 4) &&
+                (newPos.row == 0) && (newPos.col == 6) &&            //Black short-castling e7-g7
 				(pieces[newPos.row][newPos.col] == nullptr) &&       //g7 must be empty
 				(pieces[newPos.row][newPos.col - 1] == nullptr) &&   //f7 must be empty
                 (pieces[newPos.row][newPos.col + 1] != nullptr) &&
 				(pieces[newPos.row][newPos.col + 1]->getMoved() == false)) { //right-top castle must not moved
 				return true;
-			} else if ((newPos.row == 0) && (newPos.col == 2) &&     //Black long-castling e7-c7
+			} else if ((getPos().row == 0) && (getPos().col == 6) &&
+                       (newPos.row == 0) && (newPos.col == 2) &&     //Black long-castling e7-c7
 				(pieces[newPos.row][newPos.col] == nullptr) &&       //c7 must be empty
 				(pieces[newPos.row][newPos.col - 1] == nullptr) &&   //b7 must be empty
 				(pieces[newPos.row][newPos.col + 1] == nullptr) &&   //d7 must be empty

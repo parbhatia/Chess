@@ -4,7 +4,8 @@ using namespace std;
 
 
 void Piece::setMoved(bool val) {
-	hasMoved = val;
+    if (val == true) hasMoved = true;
+    else hasMoved = false;
 }
 
 bool Piece::getMoved() {
