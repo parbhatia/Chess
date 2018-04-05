@@ -18,6 +18,7 @@
 #include "color.h"
 #include "move.h"
 #include "errors.h"
+#include "window.h"
 using namespace std;
 
 int main() {
@@ -42,6 +43,7 @@ int main() {
     while (true) {
         ///////// GAME SETUP: RESETS EVERY GAME /////////
         Board b;
+        Xwindow *x = new Xwindow(8,8);
         Player *wplayer = NULL;
         Player *bplayer = NULL;
         King *wking = new King(White,{-1,-1});
