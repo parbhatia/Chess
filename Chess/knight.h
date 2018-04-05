@@ -9,7 +9,7 @@ class Knight: public Piece {
 public:
     bool IsLegal(Pos newPos, std::vector <std::vector<Piece*>> pieces) override;
     std::vector<Pos> getPossibleMoves(std::vector <std::vector<Piece*>> pieces) override;
-	Knight(Color c, Pos pos, int priority= bool hasMoved = false);
+	Knight(Color c, Pos pos, int priority = 3, bool hasMoved = false);
     void print(std::ostream& out) const override;
     ~Knight() override;
 };
