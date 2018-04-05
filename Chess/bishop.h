@@ -11,7 +11,7 @@ class Bishop: public Piece {
 public:
     bool IsLegal(Pos newPos, std::vector <std::vector<Piece*>> pieces) override;
     std::vector<Pos> getPossibleMoves(std::vector <std::vector<Piece*>> pieces) override;
-	Bishop(Color c, Pos Pos, bool hasMoved = false);
+	Bishop(Color c, Pos Pos, bool hasMoved = false, int priority = 3);
     void print(std::ostream& out) const override;
     ~Bishop() override;
 };
