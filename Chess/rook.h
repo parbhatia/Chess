@@ -10,7 +10,7 @@ class Rook: public Piece {
 public:
     bool IsLegal(Pos newPos, std::vector <std::vector<Piece*>> pieces) override;
     std::vector<Pos> getPossibleMoves(std::vector <std::vector<Piece*>> pieces) override;
-	Rook(Color c, Pos pos, bool hasMoved = false);
+	Rook(Color c, Pos pos, int priority = 9, bool hasMoved = false);
     void print(std::ostream& out) const override;
     ~Rook() override;
 };
