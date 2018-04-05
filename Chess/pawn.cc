@@ -72,7 +72,6 @@ bool Pawn::IsLegal(Pos newPos, vector <vector<Piece*>> pieces) {
 }
 
 
-
 vector<Pos> Pawn::getPossibleMoves(vector<vector<Piece*>> pieces) {
     vector<Pos> vec;
     

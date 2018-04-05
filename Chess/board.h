@@ -7,11 +7,16 @@
 #include "piece.h"
 #include <iostream>
 
+class King;
+
 class Board {
     std::vector<std::vector <Piece*>> pieces; //all pieces on board
     std::vector <Move*> moves;
     int count;
+    King *wk;
+    King *bk;
     public:
+    Pos enemyKingPos(Color color);
     std::vector <Move*> getMoves();
     void setCount(char c, int i=1);
     int getCount() const;

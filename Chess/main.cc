@@ -42,14 +42,10 @@ int main() {
     while (true) {
         ///////// GAME SETUP: RESETS EVERY GAME /////////
         Board b;
-        //shared_ptr<Player> wplayer = nullptr;
-        //shared_ptr<Player> bplayer = nullptr;
         Player *wplayer = NULL;
         Player *bplayer = NULL;
-        //shared_ptr<King> wking(new King(White,{-1,-1}));
-        //shared_ptr<King> bking(new King(White,{-1,-1}));
-        King *wking = new King(White,{-1,-1}); //WILL BE SMART PTR
-        King *bking = new King(Black,{-1,-1}); //WILL BE SMART PTR
+        King *wking = new King(White,{-1,-1});
+        King *bking = new King(Black,{-1,-1});
         bool already_setup = false;
         bool setup_conditions_met = false;
         Color turn = White; // white goes first by default
@@ -240,6 +236,8 @@ int main() {
                     cout << "Final Score:" << endl;
                     cout << "White: " << wpoints << endl;
                     cout << "Black: " << bpoints << endl;
+                    delete wking;
+                    delete bking;
                     return 0;
                 }
                 if (cmd == "resign") {

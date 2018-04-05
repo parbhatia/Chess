@@ -19,6 +19,10 @@ vector<Move*> Board::getMoves() {
     return moves;
 }
 
+Pos Board::enemyKingPos(Color color) {
+    if (color == White) return bk->getPos();
+    else return wk->getPos();
+}
 
 void Board::setCount(char c, int i) {
     if (c == '-') count = count - i;
@@ -64,10 +68,6 @@ Board::Board() : count{0} { //sets up new 8x8 board
         pieces.emplace_back(P);
     }
 }
-
-
-Board::~Board() {}
-
 
 ostream& operator<<(ostream &os, const Board &b) {
     //store column and row indices
@@ -250,6 +250,7 @@ void Board::makeTheMove(Pos mPos, Pos tPos, char prm){
         pieces[mPos.row][7] = nullptr;
         pieces[mPos.row][5]->setMoved(true);
         if (isAttacked({mPos.row, 5}) == true) {
+            undo();
             throw castling_fail();
         }
 
@@ -272,6 +273,7 @@ void Board::makeTheMove(Pos mPos, Pos tPos, char prm){
         pieces[mPos.row][0] = nullptr;
         pieces[mPos.row][3]->setMoved(true);
         if (isAttacked({mPos.row, 3}) == true) {
+            undo();
             throw castling_fail();
         }
     }
@@ -420,5 +422,14 @@ bool Board::isAttacked(Pos cellPos) {
     return false; //has checked all enemy pieces and none of them attacks player's king
 }
 
-
+Board::~Board() {
+    for(auto &row: pieces) {
+        for(auto &p: row) {
+            delete p;
+        }
+    }
+    for(auto &k: moves) {
+        delete k;
+    }
+}
 
