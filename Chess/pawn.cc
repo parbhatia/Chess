@@ -106,7 +106,7 @@ vector<Pos> Pawn::getPossibleMoves(vector<vector<Piece*>> pieces) {
     return vec;
 }
 
-Pawn::Pawn(Color c, Pos pos, bool hasMoved, bool enPassant): Piece{c ,pos, hasMoved}, enPassant{enPassant} {}
+Pawn::Pawn(Color c, Pos pos, int priority, bool hasMoved, bool enPassant): Piece{c ,pos, priority, hasMoved}, enPassant{enPassant} {}
 
 void Pawn::print(std::ostream& out) const {
     if (getColor() == White) out << 'P';
