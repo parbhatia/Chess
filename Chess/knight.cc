@@ -80,7 +80,7 @@ vector<Pos> Knight::getPossibleMoves(vector <vector<Piece*>> pieces) {
 	return vec;
 }
 
-Knight::Knight(Color c, Pos pos, bool hasMoved): Piece(c ,pos, hasMoved) {}
+Knight::Knight(Color c, Pos pos, int priority, bool hasMoved): Piece(c ,pos, priority, hasMoved) {}
 
 void Knight::print(std::ostream& out) const {
     if (getColor() == White) out << 'N';
