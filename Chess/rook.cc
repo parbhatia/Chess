@@ -85,7 +85,7 @@ vector<Pos> Rook::getPossibleMoves(vector <vector<Piece*>> pieces) {  //We need 
     return vec;
 }
 
-Rook::Rook(Color c, Pos pos, bool hasMoved): Piece{c, pos, hasMoved} {}
+Rook::Rook(Color c, Pos pos, int priority, bool hasMoved): Piece{c, pos, priority, hasMoved} {}
 
 void Rook::print(std::ostream& out) const {
     if (getColor() == White) out << 'R';
