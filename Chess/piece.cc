@@ -2,7 +2,10 @@
 #include <iostream>
 using namespace std;
 
-
+int Piece::getPriority() {
+	return priority;
+}
+	
 void Piece::setMoved(bool val) {
     if (val == true) hasMoved = true;
     else hasMoved = false;
@@ -40,6 +43,6 @@ bool Piece::getPassant() {
 
 void Piece::setPassant(bool val) {}
 
-Piece::Piece(Color c, Pos pos, bool hasMoved): color{c}, pos{pos}, hasMoved{hasMoved} {}
+Piece::Piece(Color c, Pos pos, int priority, bool hasMoved): color{c}, pos{pos}, priority{priority}, hasMoved{hasMoved} {}
 
 Piece::~Piece() {}

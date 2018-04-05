@@ -13,7 +13,7 @@ class Pawn : public Piece {
 	void setPassant(bool val) override;
         bool IsLegal(Pos newPos, std::vector <std::vector<Piece*>> pieces) override;
         std::vector<Pos> getPossibleMoves(std::vector<std::vector<Piece*>> pieces) override;
-	Pawn(Color c, Pos pos, bool hasMoved = false, bool enPassant = false);
+	Pawn(Color c, Pos pos, int priority = 1, bool hasMoved = false, bool enPassant = false);
     void print(std::ostream& out) const override;
     ~Pawn() override;
 };
